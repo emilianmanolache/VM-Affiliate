@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE install SYSTEM "http://www.joomla.org/xml/dtd/1.5/plugin-install.dtd">
+
+<install version="1.5.2" type="plugin" group="system" method="upgrade">
+
+	<name>System - VM Affiliate Tracking Plugin</name>
+	
+	<author>Globacide Solutions</author>
+	
+	<creationDate>May 2011</creationDate>
+	
+	<copyright>Copyright (C) 2011 Globacide Solutions. All rights reserved.</copyright>
+	
+	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+	
+	<authorEmail>support@globacide.com</authorEmail>
+	
+	<authorUrl>http://www.globacide.com</authorUrl>
+	
+	<version>1.0.0</version>
+	
+	<description>Plugin that tracks visits and orders for VM Affiliate.</description>
+	
+	<files>
+	
+		<filename plugin="vma">vma.php</filename>
+		
+	</files>
+	
+	<params>
+	
+	</params>
+	
+</install>
