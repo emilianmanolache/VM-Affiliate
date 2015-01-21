@@ -786,3 +786,17 @@ administrator/components/com_virtuemart/virtuemart.cfg.php
 administrator/components/com_virtuemart/virtuemart.xml
 administrator/components/com_virtuemart/worldpay_notify.php
 administrator/components/com_virtuemart/x-click-but21.gif
+
+administrator/components/com_virtuemart/assets/*
+administrator/components/com_virtuemart/elements/*
+administrator/components/com_virtuemart/install/*
+administrator/components/com_virtuemart/liveupdate/*
+administrator/components/com_virtuemart/plugins/*
+administrator/components/com_virtuemart/tables/*
+administrator/components/com_virtuemart/virtuemart.cfg
+administrator/components/com_virtuemart/virtuemart_defaults.cfg-dist
+language/en-GB/en-GB.com_virtuemart.ini
+language/en-GB/en-GB.com_virtuemart.sef.ini
+language/en-GB/en-GB.com_virtuemart.sys.ini
+language/en-GB/en-GB.com_virtuemart_orders.ini
+language/en-GB/en-GB.com_virtuemart_shoppers.ini

@@ -1,1 +1,0 @@
-SELECT `id` FROM `#__users` WHERE 1 = 2;
