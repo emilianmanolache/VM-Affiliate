@@ -914,5 +914,5 @@ administrator/components/com_virtuemart/views/userfields/*
 administrator/components/com_virtuemart/views/usergroups/*
 administrator/components/com_virtuemart/views/virtuemart/*
 
-administrator\components\com_virtuemart\html\vmaInstall.xml
-administrator\components\com_virtuemart\vmaInstall.xml
+administrator/components/com_virtuemart/html/vmaInstall.xml
+administrator/components/com_virtuemart/vmaInstall.xml
