@@ -1,0 +1,75 @@
+@charset "utf-8";
+
+#affiliatePanel {
+	
+	width: 			100%;
+	
+}
+
+#affiliatePanel hr {
+	
+	width: 			100%;
+	
+	background:		#CCCCCC;
+	
+	border:			0 none;
+	
+	height:			2px;
+	
+	margin:			10px 0px 10px 0px;
+	
+}
+
+#affiliateRegisterForm {
+	
+	float: 			left;
+	
+}
+
+div.affiliateInputField {
+	
+	margin-bottom: 	5px;
+	
+	clear:			both;
+	
+}
+
+div.affiliateFormHeadline {
+	
+	margin: 		10px 0px 10px 0px;
+	
+}
+
+div.affiliateInputField span {
+	
+	width:			150px;
+	
+	float:			left;
+	
+}
+
+div.affiliateInputField input[type=password], div.affiliateInputField input[type=text] {
+	
+	width:			150px;
+	
+}
+
+div#affiliateAccountIcon {
+	
+	background:		url(../images/account.png) no-repeat center center;
+	
+	width:			64px;
+	
+	height:			64px;
+	
+}
+
+div#affiliateDetailsIcon {
+	
+	background:		url(../images/details.png) no-repeat center center;
+	
+	width:			64px;
+	
+	height:			64px;
+	
+}

@@ -1,0 +1,43 @@
+<?php
+
+/**
+ * @package   VM Affiliate
+ * @version   4.5.2.0 January 2012
+ * @author    Globacide Solutions http://www.globacide.com
+ * @copyright Copyright (C) 2006 - 2012 Globacide Solutions
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ */
+
+// no direct access
+
+defined( '_JEXEC' ) or die( 'Direct access to this location is not allowed.' );
+ 
+// get vma settings
+
+global $vmaSettings;
+
+?>
+
+<div class="mainLinks">
+	
+	<?php echo JText::_("YOUR_AFFILIATE_ID"); ?>: 
+    
+    <strong>
+    
+        <?php echo $this->affiliate->affiliate_id; ?>
+        
+    </strong>
+    
+</div>
+
+<div class="mainLinks">
+
+    <?php echo JText::_("URL"); ?>: 
+
+    <strong>
+    
+        <?php echo JRoute::_( JURI::base() . "index.php?" . $vmaSettings->link_feed . "=" . $this->affiliate->affiliate_id ); ?>
+        
+    </strong>
+    
+</div>

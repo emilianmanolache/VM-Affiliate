@@ -1,0 +1,697 @@
+@charset "utf-8";
+
+div.affiliateAdminPage {
+	
+	border:					1px solid #D0D0D0;
+	
+	padding:				20px;
+	
+	margin-bottom:			30px;
+	
+}
+
+div.affiliateAdminPage input, div.affiliateAdminPage select {
+	
+	border:					1px solid silver;
+	
+    font-size:				10px;
+	
+}
+
+div.affiliateAdminPage input[type="checkbox"], div.affiliateAdminPage input[type="radio"] {
+	
+	border:					0px none;
+	
+}
+
+div.affiliateAdminPage table.adminlist input[type="checkbox"] {
+	
+	margin-left:			4px;
+	
+}
+
+div.affiliateAdminPage input[type="checkbox"] {
+	
+	margin-left:			0px;
+	
+	padding-left:			0px;
+	
+}
+
+#adminPanel {
+		
+	width:					720px;
+	
+	position: 				relative;
+	
+	margin-left: 			auto;
+	
+	margin-right: 			auto;
+	
+	margin-top:				20px;
+	
+}
+
+a.affiliatePayoutNotice {
+	
+	background: 			url(../images/pay_small.png) no-repeat left center; 
+	
+	height: 				24px; 
+	
+	padding: 				5px 0px 5px 29px;
+		   
+}
+
+#affiliateDetailsPanel {
+	
+	width: 					100%; 
+	
+	margin-left: 			auto; 
+	
+	margin-right: 			auto;
+	
+	color:					#333;
+	
+}
+
+div.affiliateDetailsColumn {
+	
+	float: 					left; 
+	
+	width:					45%; 
+	
+	padding: 				15px;
+	
+}
+
+div.affiliateDetailsRow {
+
+	padding:				6px 0px 6px 0px;
+	
+	clear:					both;
+	
+	height:					12px;
+	
+}
+
+div.affiliateDetailsRow:hover {
+	
+	background:				url(../../views/panel/tmpl/images/bg_pixel.png) repeat;
+	
+}
+
+div.affiliateDetailsDescription {
+	
+	clear:					both;
+	
+	padding:				20px 0px 0px 0px;
+	
+}
+
+div.affiliateDetailsRow div {
+	
+	width: 					50%;
+	
+	float: 					left;
+	
+}
+
+div.affiliateFormRow {
+
+	padding:				6px 0px 6px 0px;
+	
+	clear:					both;
+	
+}
+
+div.affiliateFormRow div {
+	
+	width: 					30%;
+	
+	float: 					left;
+	
+}
+
+div.affiliateFormRow div.affiliateFormKey {
+	
+	float:					left;
+	
+	width: 					250px;
+	
+}
+
+div.affiliateFormRow div.affiliateFormValue {
+	
+	float:					left;
+	
+}
+
+div.affiliateFormRow div.affiliateFormValue select {
+	
+	width:					84px;
+	
+}
+
+div.affiliateFormRow div.affiliateFormValue input[type=text] {
+	
+	width:					82px;
+	
+}
+
+div.affiliateFormRow div.affiliateDetailsValue {
+	
+	width:					70%;
+	
+}
+
+div.affiliateDetailsValue input {
+	
+	width:					150px;
+	
+}
+
+div.affiliateCommissionInputs input[type=text] {
+	
+	width:					82px;
+	
+	text-align:				right;
+	
+}
+
+div.affiliateLongerInputs input {
+	
+	width:					160px;
+	
+}
+
+div.affiliateLongerInputs button {
+	
+	width:					164px;
+	
+}
+
+div.affiliateLongerInputs select {
+	
+	width:					162px;
+	
+}
+
+div.affiliateCommissionInputs select {
+	
+	width:					84px;
+	
+}
+
+div.affiliateCommissionInputs input[type=checkbox] {
+	
+	width:					auto;
+	
+}
+
+img#thumbnailImage {
+	
+	padding: 				4px; 
+	
+	border: 				1px solid #C0C0C0;
+	
+	margin-bottom: 			4px;
+	
+}
+
+#uploadSpinner {
+	
+	background: 			url(../images/spinner.gif) no-repeat left center; 
+	
+	display: 				block; 
+	
+	padding: 				4px 0px 2px 20px; 
+	
+	position: 				relative; 
+	
+	float: 					none; 
+	
+	width: 					auto;
+
+}
+
+#adminPanel #adminPanelIcons {
+	
+	width: 					480px; 
+	
+	float:					left;
+	
+}
+
+#affiliateProgramSummary {
+	
+	border:					1px solid #DADADA;
+	
+	width:					200px;
+	
+	margin-left:			18px;
+	
+	margin-top:				10px;
+	
+	padding:				10px;
+	
+	float:					left;
+	
+	color:					#333;
+	
+	-moz-border-radius: 	6px;
+	
+	-webkit-border-radius: 	6px;
+	
+	border-radius: 			6px;
+	
+}
+
+div.adminPanelIcon {
+	
+	width: 					100px; 
+	
+	text-align: 			center; 
+	
+	float: 					left; 
+	
+	padding:				10px 5px 10px 5px;
+	
+	margin:					0px	5px 0px 5px;
+	
+	-moz-border-radius: 	6px;
+	
+	-webkit-border-radius: 	6px;
+	
+	border-radius: 			6px;
+	
+}
+
+div.adminPanelIcon:hover {
+	
+	background:				url(../../views/panel/tmpl/images/bg_pixel.png) repeat;
+	
+}
+
+div.adminPanelTitleIcon {
+	
+	display:				block;
+	
+	height:					64px;
+	
+	padding-left:			69px;
+	
+}
+
+div.adminSummaryIcon {
+	
+	background:				url(../images/summary.png) 							no-repeat left center;
+	
+}
+
+div.adminAffiliatesIcon {
+	
+	background:				url(../images/users.png) 							no-repeat left center;
+	
+}
+
+div.adminDetailsIcon {
+	
+	background:				url(../images/affiliate.png) 						no-repeat left center;
+	
+}
+
+div.adminPayIcon {
+	
+	background:				url(../images/pay.png) 								no-repeat left center;
+	
+}
+
+div.adminAffiliateAddIcon {
+	
+	background:				url(../images/add.png) 								no-repeat left center;
+	
+}
+
+div.adminAffiliateUpdateIcon {
+	
+	background:				url(../../views/panel/tmpl/images/details.png) 		no-repeat left center;
+	
+}
+
+div.adminPreferencesIcon {
+	
+	background:				url(../images/preferences.png) 						no-repeat left center;
+	
+}
+
+div.adminCommissionRatesIcon {
+	
+	background:				url(../images/commissions.png) 						no-repeat left center;
+	
+}
+
+div.adminBannersIcon {
+	
+	background:				url(../images/banners.png) 							no-repeat left center;
+	
+}
+
+div.adminTextAdsIcon {
+	
+	background:				url(../images/textads.png) 							no-repeat left center;
+	
+}
+
+div.adminSizeGroupsIcon {
+	
+	background:				url(../images/sizegroups.png) 						no-repeat left center;
+	
+}
+
+div.adminSizeGroupsEditIcon {
+	
+	background:				url(../images/sizegroupsedit.png) 					no-repeat left center;
+	
+}
+
+div.adminProductAdsIcon {
+	
+	background:				url(../images/productads.png) 						no-repeat left center;
+	
+}
+
+div.adminCategoryAdsIcon {
+	
+	background:				url(../images/categoryads.png) 						no-repeat left center;
+	
+}
+
+div.adminTrafficIcon {
+	
+	background:				url(../images/traffic.png) 							no-repeat left center;
+	
+}
+
+div.adminSalesIcon {
+	
+	background:				url(../images/sales.png) 							no-repeat left center;
+	
+}
+
+div.adminPaymentsIcon {
+	
+	background:				url(../images/payments.png) 						no-repeat left center;
+	
+}
+
+div.adminPaymentMethodsIcon {
+	
+	background:				url(../images/methods.png) 							no-repeat left center;
+	
+}
+
+div.adminEmailAffiliatesIcon {
+	
+	background:				url(../images/emails.png) 							no-repeat left center;
+	
+}
+
+div.adminStatisticsIcon {
+	
+	background:				url(../images/statistics.png) 						no-repeat left center;
+	
+}
+
+div.adminAboutIcon {
+	
+	background:				url(../images/about.png) 							no-repeat left center;
+	
+}
+
+div#affiliateProgramSummary span {
+	
+	padding-bottom:			3px;
+	
+}
+
+div.affiliateSummaryRow {
+	
+	clear:					both;
+	
+	height:					12px;
+	
+}
+
+div.affiliateSummaryRow:hover {
+	
+	background:				url(../../views/panel/tmpl/images/bg_pixel.png) repeat;
+	
+}
+
+h1.adminPanelTitle {
+	
+	line-height:			64px;
+	
+}
+
+span.affiliateSummaryTopic {
+	
+	width:					170px;
+	
+	float:					left;
+	
+}
+
+span.affiliateSummaryValue {
+	
+	width:					30px;
+	
+	float:					left;
+	
+}
+
+div.affiliateTopMenu {
+	
+	position: 				relative; 
+	
+	float:					right; 
+	
+}
+
+div.affiliateTopMenuLink {
+	
+	float:					right; 
+	
+	position:				relative;
+	
+	line-height:			24px;
+	
+}
+
+span.affiliateFilterMenu,
+
+span.affiliateFilterMenu span {
+	
+	float:					left;
+	
+}
+
+div.affiliateTopMenuLink span.affiliateTopMenuLinkItem a {
+	
+	padding-left: 			24px;
+	
+}
+
+div.affiliateTopMenuLink span {
+	
+	display: 				block;
+	 
+	margin-left:			5px;
+	 
+	margin-right:			5px;
+	
+}
+
+div.affiliateHR {
+	
+	border-bottom:			2px solid #CCCCCC;
+
+	margin:					10px 0px 10px 0px;
+
+	padding:				0px 0px 0px 0px;
+
+	width:					100%;
+	
+}
+
+input.affiliateButton {
+	
+	padding-right:			6px;
+	
+	padding-left:			46px;
+	
+	height:					32px;
+	
+	cursor:					pointer;
+	
+}
+
+input.affiliateButton:focus {
+	
+	background-color:		transparent;
+	
+}
+
+span.affiliateButton {
+	
+	font-size:				18px;
+	
+	padding:				3px 0px 7px 0px;
+	
+}
+
+span.affiliateButton:hover {
+	
+	background:				url(../../views/panel/tmpl/images/bg_pixel.png) 																				repeat;
+	
+}
+
+input.paymentCheck {
+	
+	background:				url(../images/payment_check.png) 																								no-repeat 8px center;
+		
+}
+
+input.paymentBanktransfer {
+	
+	background:				url(../images/payment_banktransfer.png) 																						no-repeat 8px center;
+		
+}
+
+input.paymentOther {
+	
+	background:				url(../images/payment_other.png) 																								no-repeat 8px center;
+		
+}
+
+input.affiliateSaveButton {
+	
+	background:				url(../images/save.png) 																										no-repeat 4px center;
+	
+	padding-left:			40px;
+	
+	padding-right:			8px;
+	
+}
+
+input.affiliateMailButton {
+	
+	background:				url(../images/mail.png) 																										no-repeat 8px center;
+	
+}
+
+input.affiliateResetButton {
+	
+	background:				url(../images/cancel.png) 																										no-repeat 8px center;
+	
+}
+
+div.affiliateDetailsValue div.button2-left {
+	
+	display:				none;
+	
+}
+
+div.affiliateFormRow div.affiliateInfoIcon {
+	
+	margin-right:			5px;
+	
+	width:					auto;
+
+}
+
+div.affiliateDetailsDescription h2 {
+	
+	color:					#0B55C4;
+	
+}
+
+img.paymentMethodAddButton {
+	
+	vertical-align:			text-top;
+	
+}
+
+img.paymentMethodRemoveButton {
+	
+	vertical-align:			text-top;
+	
+	margin:					1px 0px 0px 1px;
+	
+}
+
+div#affiliateStatisticsGraph {
+	
+	margin-left:			auto;
+	
+	margin-right:			auto;
+	
+	text-align:				center;
+	
+	width:					465px;
+
+}
+
+div#aboutContainer {
+	
+	font-family:			Verdana, Geneva, sans-serif;
+	
+	font-size:				12px;
+	
+	line-height:			20px;
+	
+}
+
+div.affiliateSearchBox {
+	
+	float:					right; 
+	
+	text-align:				right;
+	
+}
+
+div.affiliatePreviewWindow div#sbox-content {
+			
+	overflow:				hidden;
+	
+}
+
+div.affiliateLogsMenu {
+	
+	float:					left;
+	
+}
+
+div.affiliateCustomURLWindow div#sbox-content {
+	
+	overflow:				hidden;
+	
+}
+
+div.affiliateSizeGroupWindow div#sbox-content {
+	
+	overflow-x:				hidden;
+	
+}
+	
+div.affiliateSizeGroupMenuModal {
+	
+	margin-top:				10px;
+	
+}
+
+div.affiliateDetailsValue div.advcode_toggle {
+	
+	display:				none;
+	
+}

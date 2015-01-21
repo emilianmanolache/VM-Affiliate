@@ -1,0 +1,167 @@
+<?php
+
+/**
+ * @package   VM Affiliate
+ * @version   4.5.2.0 January 2012
+ * @author    Globacide Solutions http://www.globacide.com
+ * @copyright Copyright (C) 2006 - 2012 Globacide Solutions
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ */
+
+// no direct access
+
+defined( '_JEXEC' ) or die( 'Direct access to this location is not allowed.' );
+
+// load the model framework
+
+jimport( 'joomla.application.component.model');
+
+if (!class_exists('VmModel')) require(JPATH_VM_ADMINISTRATOR . DS . 'helpers' . DS . 'vmmodel.php');
+
+/**
+ * Model for VM Affiliate
+ */
+ 
+class VirtueMartModelVma_traffic extends VmModel {
+
+	/**
+	 * Model constructor
+	 */
+	 
+	function __construct() {
+		
+		parent::__construct();
+
+	}
+	
+	/**
+	 * Method to build the data query
+	 */
+	 
+	function _buildQuery($total = false) {
+		
+		global $vmaHelper;
+	
+		// get parameters
+		
+		$paid			= &JRequest::getVar("paid",			1);
+
+		$unique			= &JRequest::getVar("unique",		0);
+
+		$affiliateID	= &JRequest::getVar("affiliate_id",	0);
+		
+		// get search condition
+		
+		$searchIn 		= array("AffiliateID", "RefURL", "Browser", "date");
+		
+		$search			= JRequest::getWord('search');
+		
+		$condition		= "1 = 1";
+		
+		$condition	   .= $search 		? " AND " . $vmaHelper->prepareSearch($searchIn, $search, "clicks")	: NULL;
+		
+		$condition	   .= !$paid 		? " AND clicks.`paid` 			= '0' " 							: NULL;
+
+		$condition	   .= $affiliateID 	? " AND clicks.`AffiliateID` 	= '" . $affiliateID . "' "			: NULL;
+		
+		$groupBy		= ($unique ? " GROUP BY clicks.`RemoteAddress`" : NULL) . " ORDER BY clicks.`ClickID` DESC ";
+		
+		// build query
+		
+		$join			= "LEFT JOIN #__vm_affiliate affiliates ON clicks.`AffiliateID` = affiliates.`affiliate_id`";
+
+		$query			= !$total ? 
+		
+						  "SELECT " . 		($unique ? "DISTINCT " : NULL) . "clicks.*, CONCAT(affiliates.`fname`, ' ', affiliates.`lname`) " 	. 
+
+						  "AS name FROM #__vm_affiliate_clicks clicks " . $join . " WHERE " . $condition . $groupBy :
+
+						  "SELECT COUNT(" . ($unique ? "DISTINCT " : NULL) . "clicks.`RemoteAddress`) FROM #__vm_affiliate_clicks clicks " 		. $join . " WHERE " . $condition;
+		
+		// return query
+					  
+		return $query;
+		
+	}
+	
+	/**
+	 * Method to get the data
+	 */
+	 
+	function getData() {
+
+		// if data hasn't already been obtained, load it
+		
+		if (empty($this->_data)) {
+
+            $query 			= $this->_buildQuery();
+
+            $this->_data 	= $this->_getList($query, $this->getState('limitstart'), $this->getState('limit')); 
+
+        }
+
+        return $this->_data;
+
+	}
+	
+	/**
+	 * Method to get the total
+	 */
+
+	function getTotal() {
+		
+		$database	= JFactory::getDBO();
+		
+		$query		= $this->_buildQuery(true);
+		
+		$database->setQuery($query);
+		
+		$total		= $database->loadResult();
+
+		return $total;
+		
+	}
+	
+	/**
+	 * Method to get pagination
+	 */
+	 
+	function getPagination() {
+		
+		// get mainframe
+		
+		$mainframe		= &JFactory::getApplication();
+		
+		// import joomla pagination library
+		
+		jimport( 'joomla.html.pagination' );
+		
+		// get pagination variables
+		
+		$limit			= $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
+		
+		$limitstart 	= $mainframe->getUserStateFromRequest(JRequest::getWord('option') . JRequest::getWord('view') . '.limitstart', 'limitstart', 0, 'int');
+
+		// set the state pagination variables
+		
+		$this->setState('limit', 		$limit);
+		
+		$this->setState('limitstart',	$limitstart);
+		
+		// get total
+		
+		$total			= $this->getTotal();
+		
+		// get pagination
+		
+		$pagination 	= new JPagination($total, $limitstart, $limit);
+		
+		// return the pagination
+		
+		return $pagination;
+		
+	}
+	
+}
+
+// no closing tag
