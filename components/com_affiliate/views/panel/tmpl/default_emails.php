@@ -2,9 +2,9 @@
 
 /**
  * @package   VM Affiliate
- * @version   4.5.0 May 2011
+ * @version   4.5.2.0 January 2012
  * @author    Globacide Solutions http://www.globacide.com
- * @copyright Copyright (C) 2006 - 2011 Globacide Solutions
+ * @copyright Copyright (C) 2006 - 2012 Globacide Solutions
  * @license   http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 
@@ -14,7 +14,7 @@ defined( '_JEXEC' ) or die( 'Direct access to this location is not allowed.' );
  
 // get vma settings
 
-global $vmaSettings, $ps_vma;
+global $vmaSettings, $vmaHelper;
 
 $document 			= &JFactory::getDocument();
 
@@ -54,7 +54,7 @@ $document->addScriptDeclaration($uncheckHTML);
 
 <div>
 
-	<form action="<?php echo JRoute::_($ps_vma->vmaRoute("index.php?option=com_affiliate&view=panel&subview=emails&task=emails")); ?>" method="post">
+	<form action="<?php echo JRoute::_($vmaHelper->vmaRoute("index.php?option=com_affiliate&view=panel&subview=emails&task=emails")); ?>" method="post">
     
 	<div class="affiliateEmailsRow">
     
@@ -100,7 +100,7 @@ $document->addScriptDeclaration($uncheckHTML);
     
     	<div class="affiliateEmailsLabel">
         
-        	<label for="affiliateHTML"><?php echo JText::_("SEND IN HTML MODE"); ?></label>
+        	<label for="affiliateHTML"><?php echo JText::_("COM_USERS_MAIL_FIELD_SEND_IN_HTML_MODE_LABEL"); ?></label>
             
 		</div>
         

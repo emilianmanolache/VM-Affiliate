@@ -2,9 +2,9 @@
 
 /**
  * @package   VM Affiliate
- * @version   4.5.0 May 2011
+ * @version   4.5.2.0 January 2012
  * @author    Globacide Solutions http://www.globacide.com
- * @copyright Copyright (C) 2006 - 2011 Globacide Solutions
+ * @copyright Copyright (C) 2006 - 2012 Globacide Solutions
  * @license   http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 
@@ -28,7 +28,11 @@ class AffiliateViewRegister extends JView {
 	 
     function display($tpl = null) {
 		
-		global $mainframe, $ps_vma;
+		global $vmaHelper;
+		
+		// get application
+		
+		$mainframe		= &JFactory::getApplication();
 		
 		// only load footer
 		
@@ -62,7 +66,7 @@ class AffiliateViewRegister extends JView {
 		
 		// fix squeezebox issue on mootools 1.2
 				
-		$ps_vma->fixSqueezeBox();
+		$vmaHelper->fixSqueezeBox();
 		
 		// initiate squeezebox
 		
@@ -76,7 +80,7 @@ class AffiliateViewRegister extends JView {
 		
 		// set the pathway and page title
 
-		$pathway->addItem( JText::_("SIGN_UP_TEXT"), JRoute::_($ps_vma->vmaRoute('index.php?option=com_affiliate&view=register')) );
+		$pathway->addItem( JText::_("SIGN_UP_TEXT"), JRoute::_($vmaHelper->vmaRoute('index.php?option=com_affiliate&view=register')) );
 
 		$document->setTitle( $params->get( 'page_title') );
 		

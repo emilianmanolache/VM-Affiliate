@@ -2,9 +2,9 @@
 
 /**
  * @package   VM Affiliate
- * @version   4.5.0 May 2011
+ * @version   4.5.2.0 January 2012
  * @author    Globacide Solutions http://www.globacide.com
- * @copyright Copyright (C) 2006 - 2011 Globacide Solutions
+ * @copyright Copyright (C) 2006 - 2012 Globacide Solutions
  * @license   http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 
@@ -14,7 +14,7 @@ defined( '_JEXEC' ) or die( 'Direct access to this location is not allowed.' );
  
 // get vma settings
 
-global $vmaSettings, $ps_vma;
+global $vmaSettings, $vmaHelper;
 
 // get current document
 
@@ -44,7 +44,7 @@ $this->loadTemplate("validation");
 	
     <div id="affiliateRegisterForm">
     
-        <form action="<?php echo JRoute::_($ps_vma->vmaRoute("index.php?option=com_affiliate&view=login&task=register")); ?>" method="post" onsubmit="if (!validateAffiliateForm()) { return false; }">
+        <form action="<?php echo JRoute::_($vmaHelper->vmaRoute("index.php?option=com_affiliate&view=login&task=register")); ?>" method="post" onsubmit="if (!validateAffiliateForm()) { return false; }">
             
             <div class="affiliateFormHeadline">
             
@@ -58,7 +58,7 @@ $this->loadTemplate("validation");
             
                 <span>
                     
-                    <label for="affiliateUsername"><?php echo JText::_("USERNAME"); ?></label>
+                    <label for="affiliateUsername"><?php echo JText::_("JGLOBAL_USERNAME"); ?></label>
                     
                 </span>
                 
@@ -70,7 +70,7 @@ $this->loadTemplate("validation");
             
                 <span>
                 
-                    <label for="affiliatePassword"><?php echo JText::_("PASSWORD"); ?></label>
+                    <label for="affiliatePassword"><?php echo JText::_("JGLOBAL_PASSWORD"); ?></label>
                     
                 </span>
             
@@ -240,7 +240,7 @@ $this->loadTemplate("validation");
                     
                     <input id="affiliateTermsAgreement" name="agreed_terms" value="1" type="checkbox" />
                     
-                    <a href="<?php echo JRoute::_($ps_vma->vmaRoute("index.php?option=com_affiliate&view=terms&tmpl=component")); ?>" class="affiliateModal">
+                    <a href="<?php echo JRoute::_($vmaHelper->vmaRoute("index.php?option=com_affiliate&view=terms&tmpl=component")); ?>" class="affiliateModal">
                             
 						<?php echo JText::_("I_AGREE_TO_TERMS"); ?>
                             

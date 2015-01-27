@@ -2,9 +2,9 @@
 
 /**
  * @package   VM Affiliate
- * @version   4.5.0 May 2011
+ * @version   4.5.2.0 January 2012
  * @author    Globacide Solutions http://www.globacide.com
- * @copyright Copyright (C) 2006 - 2011 Globacide Solutions
+ * @copyright Copyright (C) 2006 - 2012 Globacide Solutions
  * @license   http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 
@@ -14,7 +14,7 @@ defined( '_JEXEC' ) or die( 'Direct access to this location is not allowed.' );
  
 // get vma settings
 
-global $vmaSettings, $ps_vma;
+global $vmaSettings, $vmaHelper;
 
 // get current document
 
@@ -32,7 +32,7 @@ $this->loadTemplate("preferences_validation");
 	
 <div id="affiliateDetailsForm">
 
-    <form action="<?php echo JRoute::_($ps_vma->vmaRoute("index.php?option=com_affiliate&view=panel&subview=preferences&task=paymentMethod")); ?>" method="post" id="affiliatePreferencesForm"
+    <form action="<?php echo JRoute::_($vmaHelper->vmaRoute("index.php?option=com_affiliate&view=panel&subview=preferences&task=paymentMethod")); ?>" method="post" id="affiliatePreferencesForm"
     
 	onsubmit="if (!validatePaymentMethodForm()) { return false; }">
 
@@ -80,7 +80,7 @@ $this->loadTemplate("preferences_validation");
                 
                 <span>&nbsp;</span>
                 
-                <input type="submit" name="submit" class="button" value="<?php echo JText::_('SAVE'); ?>" />
+                <input type="submit" name="submit" class="button" value="<?php echo JText::_("JSAVE"); ?>" />
                 
                 <?php echo JHTML::_( 'form.token' ); ?>
             
@@ -90,7 +90,7 @@ $this->loadTemplate("preferences_validation");
         
 	</form>
     
-    <form action="<?php echo JRoute::_($ps_vma->vmaRoute("index.php?option=com_affiliate&view=panel&subview=preferences&task=linkTo")); ?>" method="post"
+    <form action="<?php echo JRoute::_($vmaHelper->vmaRoute("index.php?option=com_affiliate&view=panel&subview=preferences&task=linkTo")); ?>" method="post"
     
 	onsubmit="<?php if (!$this->affiliate->linkedto) { ?>if (!validateLinkToUserForm()) { return false; }<?php } ?>">
               
@@ -140,7 +140,7 @@ $this->loadTemplate("preferences_validation");
                 
                 <span>&nbsp;</span>
                 
-                <input type="submit" name="submit" class="button" value="<?php echo JText::_('SAVE'); ?>" />
+                <input type="submit" name="submit" class="button" value="<?php echo JText::_("JSAVE"); ?>" />
                 
                 <?php echo JHTML::_( 'form.token' ); ?>
             

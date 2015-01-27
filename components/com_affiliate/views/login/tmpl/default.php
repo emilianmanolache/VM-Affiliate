@@ -2,9 +2,9 @@
 
 /**
  * @package   VM Affiliate
- * @version   4.5.0 May 2011
+ * @version   4.5.2.0 January 2012
  * @author    Globacide Solutions http://www.globacide.com
- * @copyright Copyright (C) 2006 - 2011 Globacide Solutions
+ * @copyright Copyright (C) 2006 - 2012 Globacide Solutions
  * @license   http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 
@@ -14,7 +14,7 @@ defined( '_JEXEC' ) or die( 'Direct access to this location is not allowed.' );
  
 // get vma settings
 
-global $vmaSettings, $ps_vma;
+global $vmaSettings, $vmaHelper;
 
 // get current document
 
@@ -44,13 +44,13 @@ $document->addStyleSheet(JURI::base() . "components/com_affiliate/views/login/tm
         
         <br />
         
-        <form action="<?php echo JRoute::_($ps_vma->vmaRoute("index.php?option=com_affiliate&view=login&task=login")); ?>" method="post">
+        <form action="<?php echo JRoute::_($vmaHelper->vmaRoute("index.php?option=com_affiliate&view=login&task=login")); ?>" method="post">
         
             <div class="affiliateInputField">
             
 				<span>
                 
-                	<label for="affiliateUsername"><?php echo JText::_("USERNAME"); ?></label>
+                	<label for="affiliateUsername"><?php echo JText::_("JGLOBAL_USERNAME"); ?></label>
                     
 				</span>
                 
@@ -62,7 +62,7 @@ $document->addStyleSheet(JURI::base() . "components/com_affiliate/views/login/tm
             
             	<span>
                 
-	            	<label for="affiliatePassword"><?php echo JText::_("PASSWORD"); ?></label>
+	            	<label for="affiliatePassword"><?php echo JText::_("JGLOBAL_PASSWORD"); ?></label>
                     
 				</span>
             
@@ -74,7 +74,7 @@ $document->addStyleSheet(JURI::base() . "components/com_affiliate/views/login/tm
             	
                 <span>&nbsp;</span>
                 
-                <input type="submit" name="submit" class="button" value="<?php echo JText::_("LOGIN"); ?>" />
+                <input type="submit" name="submit" class="button" value="<?php echo JText::_("JLOGIN"); ?>" />
                 
             </div>
             
@@ -82,7 +82,7 @@ $document->addStyleSheet(JURI::base() . "components/com_affiliate/views/login/tm
                 
                 <br />
                 
-                <a href="<?php echo JRoute::_($ps_vma->vmaRoute("index.php?option=com_affiliate&view=lostpassword")); ?>"><?php echo JText::_("FORGOT_YOUR_PASSWORD"); ?></a>
+                <a href="<?php echo JRoute::_($vmaHelper->vmaRoute("index.php?option=com_affiliate&view=lostpassword")); ?>"><?php echo JText::_("FORGOT_YOUR_PASSWORD"); ?></a>
                     
                 <?php if ($vmaSettings->allow_signups) { ?>
                 
@@ -90,7 +90,7 @@ $document->addStyleSheet(JURI::base() . "components/com_affiliate/views/login/tm
                     
                     <?php echo JText::_("NO_ACCOUNT"); ?>
                     
-                    <a href="<?php echo JRoute::_($ps_vma->vmaRoute("index.php?option=com_affiliate&view=register")); ?>"><?php echo JText::_("SIGN_UP_TEXT"); ?>!</a>
+                    <a href="<?php echo JRoute::_($vmaHelper->vmaRoute("index.php?option=com_affiliate&view=register")); ?>"><?php echo JText::_("SIGN_UP_TEXT"); ?>!</a>
                 
                 <?php }	?>
                 

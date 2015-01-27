@@ -2,9 +2,9 @@
 
 /**
  * @package   VM Affiliate
- * @version   4.5.0 May 2011
+ * @version   4.5.2.0 January 2012
  * @author    Globacide Solutions http://www.globacide.com
- * @copyright Copyright (C) 2006 - 2011 Globacide Solutions
+ * @copyright Copyright (C) 2006 - 2012 Globacide Solutions
  * @license   http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 
@@ -28,7 +28,9 @@ class AffiliateViewPrev extends JView {
 	 
     function display($tpl = null) {
 		
-		global $mainframe;
+		// get application
+	
+		$mainframe	= &JFactory::getApplication();
 		
 		// initialize variables
 		

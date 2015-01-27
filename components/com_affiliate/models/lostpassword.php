@@ -2,9 +2,9 @@
 
 /**
  * @package   VM Affiliate
- * @version   4.5.0 May 2011
+ * @version   4.5.2.0 January 2012
  * @author    Globacide Solutions http://www.globacide.com
- * @copyright Copyright (C) 2006 - 2011 Globacide Solutions
+ * @copyright Copyright (C) 2006 - 2012 Globacide Solutions
  * @license   http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 
@@ -28,7 +28,7 @@ class AffiliateModelLostpassword extends JModel {
 	 
 	function validateLostPasswordForm() {
 		
-		global $vmaSettings, $ps_vma;
+		global $vmaSettings, $vmaHelper;
 		
 		// get the mainframe object
 		
@@ -46,7 +46,7 @@ class AffiliateModelLostpassword extends JModel {
 		
 		if (!$accountDetails["username"]) {
 			
-			$mainframe->redirect(JRoute::_($ps_vma->vmaRoute("index.php?option=com_affiliate&view=lostpassword"), false), JText::_("PROVIDE_USERNAME"), "error");
+			$mainframe->redirect(JRoute::_($vmaHelper->vmaRoute("index.php?option=com_affiliate&view=lostpassword"), false), JText::_("PROVIDE_USERNAME"), "error");
 			
 			return false;
 			
@@ -54,7 +54,7 @@ class AffiliateModelLostpassword extends JModel {
 		
 		if (!$accountDetails["mail"]) {
 			
-			$mainframe->redirect(JRoute::_($ps_vma->vmaRoute("index.php?option=com_affiliate&view=lostpassword"), false), JText::_("PROVIDE_EMAIL_ADDRESS"), "error");
+			$mainframe->redirect(JRoute::_($vmaHelper->vmaRoute("index.php?option=com_affiliate&view=lostpassword"), false), JText::_("PROVIDE_EMAIL_ADDRESS"), "error");
 			
 			return false;
 			

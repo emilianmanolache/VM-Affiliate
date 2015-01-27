@@ -2,9 +2,9 @@
 
 /**
  * @package   VM Affiliate
- * @version   4.5.0 May 2011
+ * @version   4.5.2.0 January 2012
  * @author    Globacide Solutions http://www.globacide.com
- * @copyright Copyright (C) 2006 - 2011 Globacide Solutions
+ * @copyright Copyright (C) 2006 - 2012 Globacide Solutions
  * @license   http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 
@@ -12,7 +12,7 @@
 
 defined( '_JEXEC' ) or die( 'Direct access to this location is not allowed.' );
 
-global $ps_vma;
+global $vmaHelper;
 
 ?>
 
@@ -26,7 +26,7 @@ global $ps_vma;
             
                 <?php 
                 
-                echo ($this->type != "traffic" ? "<a href=\"" . JRoute::_($ps_vma->vmaRoute($this->link2 . "traffic")) . "\">" : NULL) . 
+                echo ($this->type != "traffic" ? "<a href=\"" . JRoute::_($vmaHelper->vmaRoute($this->link2 . "traffic")) . "\">" : NULL) . 
 				
 					  JText::_("TRAFFIC") . ($this->type != "traffic" ? "</a>" : NULL);
                 
@@ -58,7 +58,7 @@ global $ps_vma;
                 
                 <?php 
                 
-				echo ($this->type != "sales" ? "<a href=\"" . JRoute::_($ps_vma->vmaRoute($this->link2 . "sales")) . "\">" : NULL) . 
+				echo ($this->type != "sales" ? "<a href=\"" . JRoute::_($vmaHelper->vmaRoute($this->link2 . "sales")) . "\">" : NULL) . 
 				
 					  JText::_("SALES") . ($this->type != "sales" ? "</a>" : NULL);
                 
@@ -90,7 +90,7 @@ global $ps_vma;
             
                 <?php 
                 
-                echo ($this->period != "month" ? "<a href=\"" . JRoute::_($ps_vma->vmaRoute($this->link1 . "month")) . "\">" : NULL) . 
+                echo ($this->period != "month" ? "<a href=\"" . JRoute::_($vmaHelper->vmaRoute($this->link1 . "month")) . "\">" : NULL) . 
 				
 					  JText::_("THIS_MONTH") . ($this->period != "month" ? "</a>" : NULL);
                 
@@ -122,7 +122,7 @@ global $ps_vma;
                 
                 <?php 
                 
-				echo ($this->period != "year" ? "<a href=\"" . JRoute::_($ps_vma->vmaRoute($this->link1 . "year")) . "\">" : NULL) . 
+				echo ($this->period != "year" ? "<a href=\"" . JRoute::_($vmaHelper->vmaRoute($this->link1 . "year")) . "\">" : NULL) . 
 				
 					  JText::_("THIS_YEAR") . ($this->period != "year" ? "</a>" : NULL);
                 
