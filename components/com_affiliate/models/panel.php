@@ -170,7 +170,7 @@ class AffiliateModelPanel extends JModel {
 								  
 								  "LEFT JOIN #__virtuemart_products_" . $lc . " details ON product.`virtuemart_product_id` = details.`virtuemart_product_id` " . 
 								  
-								  "LEFT JOIN #__virtuemart_product_medias pmedias ON product.`virtuemart_product_id` = pmedias.`virtuemart_product_id` AND pmedias.`ordering` = '1' " . 
+								  "LEFT JOIN #__virtuemart_product_medias pmedias ON product.`virtuemart_product_id` = pmedias.`virtuemart_product_id` AND pmedias.`ordering` <= '1' " .
 								  
 								  "LEFT JOIN #__virtuemart_medias medias ON pmedias.`virtuemart_media_id` = medias.`virtuemart_media_id` " . 
 								  
@@ -223,7 +223,7 @@ class AffiliateModelPanel extends JModel {
 						// group by product id, and order by product name
 						
 						$query	   .= !$menu ? "GROUP BY product.`virtuemart_product_id` ORDER BY details.`product_name` ASC" : NULL;
-						
+
 						break;
 						
 					case 'categoryads':
@@ -806,7 +806,7 @@ class AffiliateModelPanel extends JModel {
 		
 		$affiliate				= $frontend == true ? $session->get("affiliate") : NULL;
 		
-		$textad					= array();
+		$productad				= array();
 		
 		$image					= $this->getImagePaths($rawProductAd->file_url_thumb, "product");
 		
