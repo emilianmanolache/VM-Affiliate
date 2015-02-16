@@ -2,9 +2,9 @@
 
 /**
  * @package   VM Affiliate
- * @version   4.5.0 May 2011
+ * @version   4.5.2.0 January 2012
  * @author    Globacide Solutions http://www.globacide.com
- * @copyright Copyright (C) 2006 - 2011 Globacide Solutions
+ * @copyright Copyright (C) 2006 - 2012 Globacide Solutions
  * @license   http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 
@@ -64,10 +64,12 @@ class AffiliateModelPanel extends JModel {
 	 
 	function __construct() {
 		
-		global $mainframe, $option;
-		
 		parent::__construct();
  
+ 		// get application
+		
+		$mainframe			= &JFactory::getApplication();
+		
         // get pagination request variables
 		
         $limit 				= $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
@@ -96,7 +98,7 @@ class AffiliateModelPanel extends JModel {
 	 
 	function _buildQuery($menu = NULL) {
 		
-		global $ps_vma;
+		global $vmaHelper;
 		
 		// initiate variables
 		
@@ -108,7 +110,7 @@ class AffiliateModelPanel extends JModel {
 		
 		$affiliate	= $session->get("affiliate");
 		
-		$withTax	= $ps_vma->getVATSetting();
+		$withTax	= $vmaHelper->getVATSetting();
 		
 		// build the corresponding query
 		
@@ -148,39 +150,67 @@ class AffiliateModelPanel extends JModel {
 						
 						// build the product ads query
 						
+						$lc		= $vmaHelper->getLanguageTag();
+						
 						$query	= !$menu ? 
 						
-								  "SELECT product.`product_id`, product.`product_name`, product.`product_thumb_image`, price.`product_price` AS product_price, " . 
+								  "SELECT product.`virtuemart_product_id` AS product_id, details.`product_name`, " . 
 								  
-								  "tax.`tax_rate` AS product_tax, discount.`amount` AS discount_amount, MIN(price.`price_quantity_start`), " . 
-						
-								  "discount.`is_percent` AS discount_percentage, discount.`start_date` AS discount_start, discount.`end_date` AS discount_end " . 
+								  "medias.`file_url_thumb`, price.`product_price` AS product_price, " . 
 								  
-								  "FROM #__vm_product product LEFT JOIN #__vm_product_price price ON product.`product_id` = price.`product_id` " . 
+								  "tax.`calc_value` AS product_tax, tax.`calc_value_mathop` AS product_tax_math, " .
 								  
-								  "LEFT JOIN #__vm_tax_rate tax ON product.`product_tax_id` = tax.`tax_rate_id` LEFT JOIN #__vm_product_discount discount " . 
+								  "tax.`publish_up` AS tax_start, tax.`publish_down` AS tax_end, " .  
 								  
-								  "ON product.`product_discount_id` = discount.`discount_id` LEFT JOIN #__vm_product_category_xref cat ON " . 
+								  "discount.`calc_value` AS product_discount, discount.`calc_value_mathop` AS product_discount_math, discount.`calc_kind` AS discount_type, " .
 								  
-								  "product.`product_id` = cat.`product_id` WHERE product.`product_parent_id` = '0' AND " . 
+								  "discount.`publish_up` AS discount_start, discount.`publish_down` AS discount_end, " . 
 								  
-								  "product.`product_publish` = 'Y' AND product.`product_thumb_image` != '' AND price.`shopper_group_id` = '5' " : 
+								  "price.`override` AS discount_override, price.`product_override_price` AS final_discount, " . 
 								  
-								  "SELECT COUNT(DISTINCT product.`product_id`) FROM #__vm_product product " . 
+								  "MIN(price.`price_quantity_start`) FROM #__virtuemart_products product " . 
 								  
-								  "LEFT JOIN #__vm_product_category_xref cat ON product.`product_id` = cat.`product_id` " . 
+								  "LEFT JOIN #__virtuemart_products_" . $lc . " details ON product.`virtuemart_product_id` = details.`virtuemart_product_id` " . 
 								  
-								  "WHERE product.`product_parent_id` = '0' AND product.`product_publish` = 'Y' AND product.`product_thumb_image` != '' ";
+								  "LEFT JOIN #__virtuemart_product_medias pmedias ON product.`virtuemart_product_id` = pmedias.`virtuemart_product_id` AND pmedias.`ordering` <= '1' " .
+								  
+								  "LEFT JOIN #__virtuemart_medias medias ON pmedias.`virtuemart_media_id` = medias.`virtuemart_media_id` " . 
+								  
+								  "LEFT JOIN #__virtuemart_product_prices price ON product.`virtuemart_product_id` = price.`virtuemart_product_id` " . 
+								  
+								  "LEFT JOIN #__virtuemart_calcs tax ON price.`product_tax_id` = tax.`virtuemart_calc_id` " . 
+								  
+								  "LEFT JOIN #__virtuemart_calcs discount ON price.`product_discount_id` = discount.`virtuemart_calc_id` " . 
+								  
+								  "LEFT JOIN #__virtuemart_product_categories cat ON product.`virtuemart_product_id` = cat.`virtuemart_product_id` " . 
+								  
+								  "WHERE product.`product_parent_id` = '0' AND product.`published` = '1' " . 
+								  
+								  "AND medias.`file_is_downloadable` = '0' AND medias.`file_is_forSale` = '0' AND medias.`file_url_thumb` != '' AND " . 
+								  
+								  "(price.`virtuemart_shoppergroup_id` = '5' OR price.`virtuemart_shoppergroup_id` = '0' OR ISNULL(price.`virtuemart_shoppergroup_id`)) " : 
+								  
+								  "SELECT COUNT(DISTINCT product.`virtuemart_product_id`) FROM #__virtuemart_products product " . 
+								  
+								  "LEFT JOIN #__virtuemart_product_categories cat ON product.`virtuemart_product_id` = cat.`virtuemart_product_id` " . 
+								  
+								  "LEFT JOIN #__virtuemart_product_medias pmedias ON product.`virtuemart_product_id` = pmedias.`virtuemart_product_id` " . 
+								  
+								  "LEFT JOIN #__virtuemart_medias medias ON pmedias.`virtuemart_media_id` = medias.`virtuemart_media_id` " . 
+								  
+								  "WHERE product.`product_parent_id` = '0' AND product.`published` = '1' " . 
+								  
+								  "AND medias.`file_is_downloadable` = '0' AND medias.`file_is_forSale` = '0' AND medias.`file_url_thumb` != '' ";
 						
 						// don't include unpublished products
 						
-						$unpublishedProducts = $ps_vma->getUnpublishedProducts();
+						$unpublishedProducts = $vmaHelper->getUnpublishedProducts();
 						
 						if (is_array($unpublishedProducts)) {
 							
 							foreach ($unpublishedProducts as $unpublishedProduct) {
 								
-								$query .= "AND product.`product_id` != '" . $unpublishedProduct["product_id"] . "' ";
+								$query .= "AND product.`virtuemart_product_id` != '" . $unpublishedProduct["product_id"] . "' ";
 								
 							}
 							
@@ -190,11 +220,11 @@ class AffiliateModelPanel extends JModel {
 						
 						$categoryID = JRequest::getVar("category_id", "");
 						
-						$query	   .= $categoryID ? "AND cat.`category_id` = '" . $categoryID . "' " : NULL;
+						$query	   .= $categoryID ? "AND cat.`virtuemart_category_id` = '" . $categoryID . "' " : NULL;
 						
 						// group by product id, and order by product name
 						
-						$query	   .= !$menu ? "GROUP BY product.`product_id` ORDER BY product.`product_name` ASC" : NULL;
+						$query	   .= !$menu ? "GROUP BY product.`virtuemart_product_id` ORDER BY details.`product_name` ASC" : NULL;
 						
 						break;
 						
@@ -202,21 +232,37 @@ class AffiliateModelPanel extends JModel {
 						
 						// build the category ads query
 						
+						$lc		= $vmaHelper->getLanguageTag();
+						
 						$query	= !$menu ? 
 						
-								  "SELECT DISTINCT * FROM #__vm_category WHERE `category_publish` = 'Y' AND `category_thumb_image` != '' " : 
+								  "SELECT category.`virtuemart_category_id`, medias.`file_url_thumb`, details.`category_name` FROM #__virtuemart_categories category " . 
 								  
-								  "SELECT COUNT(DISTINCT `category_id`) FROM #__vm_category WHERE `category_publish` = 'Y' AND `category_thumb_image` != '' ";
+								  "LEFT JOIN #__virtuemart_categories_" . $lc . " details ON details.`virtuemart_category_id` = category.`virtuemart_category_id` " . 
+								  
+								  "LEFT JOIN #__virtuemart_category_medias cmedias ON category.`virtuemart_category_id` = cmedias.`virtuemart_category_id` " . 
+								  
+								  "LEFT JOIN #__virtuemart_medias medias ON cmedias.`virtuemart_media_id` = medias.`virtuemart_media_id` " . 
+								  
+								  "WHERE category.`published` = '1' AND medias.`file_url_thumb` != '' " : 
+								  
+								  "SELECT COUNT(DISTINCT category.`virtuemart_category_id`) FROM #__virtuemart_categories category " . 
+								  
+								  "LEFT JOIN #__virtuemart_category_medias cmedias ON category.`virtuemart_category_id` = cmedias.`virtuemart_category_id` " . 
+								  
+								  "LEFT JOIN #__virtuemart_medias medias ON cmedias.`virtuemart_media_id` = medias.`virtuemart_media_id` " . 
+								  
+								  "WHERE category.`published` = '1' AND medias.`file_url_thumb` != '' ";
 						
 						// don't include unpublished categories
 						
-						$unpublishedCategories = $ps_vma->getUnpublishedCategories();
+						$unpublishedCategories = $vmaHelper->getUnpublishedCategories();
 						
 						if (is_array($unpublishedCategories)) {
 							
 							foreach ($unpublishedCategories as $unpublishedCategory) {
 								
-								$query .= "AND `category_id` != '" . $unpublishedCategory["category_id"] . "' ";
+								$query .= "AND category.`virtuemart_category_id` != '" . $unpublishedCategory["category_id"] . "' ";
 								
 							}
 							
@@ -226,43 +272,59 @@ class AffiliateModelPanel extends JModel {
 						
 					case 'productadscategories':
 						
+						$lc		= $vmaHelper->getLanguageTag();
+						
 						$query 	= !$menu ? 
 						
-								  "SELECT DISTINCT c.`category_id`, c.`category_name`, COUNT(DISTINCT p.`product_id`) AS products FROM #__vm_category c, #__vm_product p, " . 
-						
-								  "#__vm_product_category_xref cp WHERE cp.`category_id` = c.`category_id` AND cp.`product_id` = p.`product_id` AND " . 
-						
-								  "p.`product_publish` = 'Y' AND p.`product_thumb_image` != '' " : 
+								  "SELECT DISTINCT c.`virtuemart_category_id`, d.`category_name`, COUNT(DISTINCT p.`virtuemart_product_id`) AS products " . 
 								  
-								  "SELECT COUNT(DISTINCT c.`category_id`) FROM #__vm_category c, #__vm_product p, #__vm_product_category_xref cp " . 
+								  "FROM #__virtuemart_categories c LEFT JOIN #__virtuemart_categories_" . $lc . " d ON d.`virtuemart_category_id` = c.`virtuemart_category_id`, " . 
 								  
-								  "WHERE cp.`category_id` = c.`category_id` AND cp.`product_id` = p.`product_id` AND p.`product_publish` = 'Y' AND p.`product_thumb_image` != '' ";
+								  "#__virtuemart_products p LEFT JOIN #__virtuemart_product_medias pm ON p.`virtuemart_product_id` = pm.`virtuemart_product_id` " . 
+								  
+								  "LEFT JOIN #__virtuemart_medias m ON pm.`virtuemart_media_id` = m.`virtuemart_media_id`, #__virtuemart_product_categories cp " . 
+								  
+								  "WHERE cp.`virtuemart_category_id` = c.`virtuemart_category_id` AND cp.`virtuemart_product_id` = p.`virtuemart_product_id` AND " . 
 						
-						$unpublishedProducts 	= $ps_vma->getUnpublishedProducts();
+								  "p.`published` = '1' AND m.`file_is_downloadable` = '0' AND m.`file_is_forSale` = '0' AND m.`file_url_thumb` != '' " : 
+								  
+								  "SELECT COUNT(DISTINCT c.`virtuemart_category_id`) FROM #__virtuemart_categories c " . 
+								  
+								  "LEFT JOIN #__virtuemart_categories_" . $lc . " d ON d.`virtuemart_category_id` = c.`virtuemart_category_id`, " . 
+								  
+								  "#__virtuemart_products p LEFT JOIN #__virtuemart_product_medias pm ON p.`virtuemart_product_id` = pm.`virtuemart_product_id` " . 
+								  
+								  "LEFT JOIN #__virtuemart_medias m ON pm.`virtuemart_media_id` = m.`virtuemart_media_id`, #__virtuemart_product_categories cp " . 
+								  
+								  "WHERE cp.`virtuemart_category_id` = c.`virtuemart_category_id` AND cp.`virtuemart_product_id` = p.`virtuemart_product_id` AND " . 
+						
+								  "p.`published` = '1' AND m.`file_is_downloadable` = '0' AND m.`file_is_forSale` = '0' AND m.`file_url_thumb` != '' ";
+						
+						$unpublishedProducts 	= $vmaHelper->getUnpublishedProducts();
 						
 						if (is_array($unpublishedProducts)) {
 						
 							foreach ($unpublishedProducts as $unpublishedProduct) {
 								
-								$query .= "AND p.`product_id` != '" . $unpublishedProduct["product_id"] . "' ";
+								$query .= "AND p.`virtuemart_product_id` != '" . $unpublishedProduct["product_id"] . "' ";
 								
 							}
 							
 						}
 						
-						$unpublishedCategories 	= $ps_vma->getUnpublishedCategories();
+						$unpublishedCategories 	= $vmaHelper->getUnpublishedCategories();
 						
 						if (is_array($unpublishedCategories)) {
 						
 							foreach ($unpublishedCategories as $unpublishedCategory) {
 								
-								$query .= "AND c.`category_id` != '" . $unpublishedCategory["category_id"] . "' ";
+								$query .= "AND c.`virtuemart_category_id` != '" . $unpublishedCategory["category_id"] . "' ";
 								
 							}
 							
 						}
 						
-						$query .= !$menu ? "GROUP BY c.`category_id` " : NULL;
+						$query .= !$menu ? "GROUP BY c.`virtuemart_category_id` " : NULL;
 						
 						break;
 						
@@ -296,15 +358,15 @@ class AffiliateModelPanel extends JModel {
 
 					$query		= !$menu ? 
 					
-								  "SELECT ao.*, o.`cdate` AS order_date, o.`order_subtotal` - o.`coupon_discount` " 		. 
+								  "SELECT ao.*, o.`created_on` AS order_date, (o.`order_salesPrice` - o.`coupon_discount`) " . 
 								  
 								  "AS subtotal FROM #__vm_affiliate_orders ao "	. 
 					
-								  "LEFT JOIN #__vm_orders o ON ao.`order_id` = o.`order_id` WHERE ao.`affiliate_id` = '"	. $affiliate->affiliate_id . "' " . 
+								  "LEFT JOIN #__virtuemart_orders o ON ao.`order_id` = o.`virtuemart_order_id` WHERE ao.`affiliate_id` = '"	. $affiliate->affiliate_id . "' " . 
 								  
 								  (!$paid 		? "AND ao.`paid` = '0' " : NULL) . 
 								  
-								  ($confirmed 	? "AND (" . $ps_vma->buildStatusesCondition("confirmed", "OR", "=", "order_status", NULL, "ao") . ") " : NULL) .
+								  ($confirmed 	? "AND (" . $vmaHelper->buildStatusesCondition("confirmed", "OR", "=", "order_status", NULL, "ao") . ") " : NULL) .
 
 								  "ORDER BY order_date DESC" : 
 								  
@@ -312,7 +374,7 @@ class AffiliateModelPanel extends JModel {
 								  
 								  (!$paid		? "AND ao.`paid` = '0' " : NULL) . 
 								  
-								  ($confirmed	? "AND (" . $ps_vma->buildStatusesCondition("confirmed", "OR", "=", "order_status", NULL, "ao") . ") " : NULL);
+								  ($confirmed	? "AND (" . $vmaHelper->buildStatusesCondition("confirmed", "OR", "=", "order_status", NULL, "ao") . ") " : NULL);
 					
 					break;
 					
@@ -355,7 +417,7 @@ class AffiliateModelPanel extends JModel {
             $this->_data 	= $this->_getList($query, $this->getState('limitstart'), $this->getState('limit')); 
 			
         }
-		
+
         return $this->_data;
 		
 	}
@@ -518,7 +580,7 @@ class AffiliateModelPanel extends JModel {
 	
 	function processBanner($rawBanner, $frontend = true) {
 		
-		global $vmaSettings, $ps_vma;
+		global $vmaSettings, $vmaHelper;
 		
 		$session 				= &JFactory::getSession();
 		
@@ -590,7 +652,7 @@ class AffiliateModelPanel extends JModel {
 		
 		if (!file_exists(JPATH_ROOT . DS . $thumbnailPath)) {
 			
-			$ps_vma->resizeImage($bannerPath, $rawBanner->banner_image, "thumb");
+			$vmaHelper->resizeImage($bannerPath, $rawBanner->banner_image, "thumb");
 			
 		}
 		
@@ -626,7 +688,7 @@ class AffiliateModelPanel extends JModel {
 		
 		// hits
 		
-		$banner["hits"] 		= $ps_vma->getHits("banner", $rawBanner->banner_id, $frontend, ($frontend ? $affiliate->affiliate_id : NULL));
+		$banner["hits"] 		= $vmaHelper->getHits("banner", $rawBanner->banner_id, $frontend, ($frontend ? $affiliate->affiliate_id : NULL));
 		
 		// preview link
 		
@@ -648,7 +710,7 @@ class AffiliateModelPanel extends JModel {
 	
 	function processTextAd($rawTextAd, $frontend = true) {
 		
-		global $vmaSettings, $ps_vma;
+		global $vmaSettings, $vmaHelper;
 		
 		$session 				= &JFactory::getSession();
 		
@@ -718,7 +780,7 @@ class AffiliateModelPanel extends JModel {
 
 		// hits
 		
-		$textad["hits"] 		= $ps_vma->getHits("textad", $rawTextAd->textad_id, $frontend, ($frontend ? $affiliate->affiliate_id : NULL));
+		$textad["hits"] 		= $vmaHelper->getHits("textad", $rawTextAd->textad_id, $frontend, ($frontend ? $affiliate->affiliate_id : NULL));
 		
 		// preview link
 		
@@ -738,7 +800,7 @@ class AffiliateModelPanel extends JModel {
 	
 	function processProductAd($rawProductAd, $frontend = true) {
 		
-		global $vmaSettings, $ps_vma;
+		global $vmaSettings, $vmaHelper;
 		
 		$session 				= &JFactory::getSession();
 		
@@ -748,39 +810,23 @@ class AffiliateModelPanel extends JModel {
 		
 		$textad					= array();
 		
-		$image					= $this->getImagePaths($rawProductAd->product_thumb_image, "product");
+		$image					= $this->getImagePaths($rawProductAd->file_url_thumb, "product");
 		
 		// price
 		
-		$withTax				= $ps_vma->getVATSetting();
+		$price					= $this->calculatePrice($rawProductAd);
+
+		$discounted				= $price->productPrice != $price->discountedPrice ? true : false;
 		
-		$productPrice			= $rawProductAd->product_price;
+		$productPrice			= $vmaHelper->formatAmount($price->productPrice);
 		
-		$productPrice		   += $withTax && $rawProductAd->product_tax > 0 ? $rawProductAd->product_price * $rawProductAd->product_tax : 0;
-		
-		// discount
-		
-		$discounted				= $rawProductAd->discount_amount && $rawProductAd->discount_start <= time() && 
-		
-								  (!$rawProductAd->discount_end || $rawProductAd->discount_end >= time()) ? true : false;
-		
-		$discountedPrice		= $discounted ? 
-		
-								  ($rawProductAd->discount_percentage ? ($rawProductAd->discount_amount / 100 * $productPrice) : $rawProductAd->discount_amount) : 0;
-		
-		$discountedPrice		= $productPrice - $discountedPrice;
-		
-		// format prices
-		
-		$productPrice			= $ps_vma->formatAmount($productPrice);
-		
-		$discountedPrice		= $ps_vma->formatAmount($discountedPrice);
+		$discountedPrice		= $vmaHelper->formatAmount($price->discountedPrice);
 		
 		$priceStyle				= $discounted ? " " . "style=\"font-weight: normal; color: #FF0000; text-decoration: line-through;\"" : NULL;
 		
 		// link
 		
-		$productURL				= JRoute::_(JURI::root() . "index.php?option=com_virtuemart&page=shop.product_details&product_id=" . $rawProductAd->product_id . 
+		$productURL				= JRoute::_(JURI::root() . "index.php?option=com_virtuemart&view=productdetails&virtuemart_product_id=" . $rawProductAd->product_id . 
 			
 								  ($frontend ? "&" . $vmaSettings->link_feed . "=" . $affiliate->affiliate_id : NULL), false);
 			
@@ -842,7 +888,7 @@ class AffiliateModelPanel extends JModel {
 	
 	function processProductCategoryRow($rawCategory) {
 		
-		global $ps_vma;
+		global $vmaHelper;
 		
 		$category				= array();
 		
@@ -854,9 +900,9 @@ class AffiliateModelPanel extends JModel {
 		
 		// category name
 		
-		$categoryLink			= JRoute::_($ps_vma->vmaRoute("index.php?option=com_affiliate&view=panel&subview=banners&section=productads&category_id=" . 
+		$categoryLink			= JRoute::_($vmaHelper->vmaRoute("index.php?option=com_affiliate&view=panel&subview=banners&section=productads&category_id=" . 
 		
-								  $rawCategory->category_id));
+								  $rawCategory->virtuemart_category_id));
 		
 		$category["name"]		= "<a href=\"" . $categoryLink . "\">" . htmlspecialchars($rawCategory->category_name, ENT_QUOTES) . "</a>";
 		
@@ -876,7 +922,7 @@ class AffiliateModelPanel extends JModel {
 	
 	function processCategoryAd($rawCategoryAd, $frontend = true) {
 		
-		global $vmaSettings, $ps_vma;
+		global $vmaSettings, $vmaHelper;
 		
 		$session 				= &JFactory::getSession();
 		
@@ -886,11 +932,11 @@ class AffiliateModelPanel extends JModel {
 		
 		$categoryad				= array();
 		
-		$image					= $this->getImagePaths($rawCategoryAd->category_thumb_image, "category");
+		$image					= $this->getImagePaths($rawCategoryAd->file_url_thumb, "category");
 		
 		// link
 		
-		$categoryURL			= JRoute::_(JURI::root() . "index.php?option=com_virtuemart&page=shop.browse&category_id=" . $rawCategoryAd->category_id . 
+		$categoryURL			= JRoute::_(JURI::root() . "index.php?option=com_virtuemart&view=category&virtuemart_category_id=" . $rawCategoryAd->virtuemart_category_id . 
 			
 								  ($frontend ? "&" . $vmaSettings->link_feed . "=" . $affiliate->affiliate_id : NULL), false);
 			
@@ -935,7 +981,7 @@ class AffiliateModelPanel extends JModel {
 		
 		// preview link
 		
-		$previewLink			= JRoute::_("index.php?option=com_affiliate&view=prev&tmpl=component&format=raw&type=categoryads&id=" . $rawCategoryAd->category_id);
+		$previewLink			= JRoute::_("index.php?option=com_affiliate&view=prev&tmpl=component&format=raw&type=categoryads&id=" . $rawCategoryAd->virtuemart_category_id);
 		
 		$categoryad["prev"]		= "<a href=\"" . $previewLink . "\" class=\"affiliateModal\">" . JText::_("PREVIEW") . "</a>";
 		
@@ -971,7 +1017,7 @@ class AffiliateModelPanel extends JModel {
 			
 		$rawTrafficRow->RefURL	= str_replace("&",		"&amp;",	$rawTrafficRow->RefURL);
 			
-		$traffic["referrer"]	= $rawTrafficRow->RefURL ? $rawTrafficRow->RefURL : JText::_("NONE");
+		$traffic["referrer"]	= $rawTrafficRow->RefURL ? $rawTrafficRow->RefURL : JText::_("JNONE");
 		
 		$traffic["referrer"]	= $rawTrafficRow->RefURL && strlen($rawTrafficRow->RefURL) > 50 ? substr($rawTrafficRow->RefURL, 0, 50) : $traffic["referrer"];
 		
@@ -1001,7 +1047,7 @@ class AffiliateModelPanel extends JModel {
 	
 	function processSalesRow($rawSalesRow, $frontend = true) {
 		
-		global $vmaSettings, $ps_vma;
+		global $vmaSettings, $vmaHelper;
 		
 		$sale					= array();
 		
@@ -1017,11 +1063,11 @@ class AffiliateModelPanel extends JModel {
 		
 		// subtotal
 		
-		$sale["subtotal"]		= $ps_vma->formatAmount($rawSalesRow->subtotal);
+		$sale["subtotal"]		= $vmaHelper->formatAmount($rawSalesRow->subtotal);
 		
 		// status
 		
-		if (in_array($rawSalesRow->order_status, $ps_vma->_confirmedStatuses)) {
+		if (in_array($rawSalesRow->order_status, $vmaHelper->_confirmedStatuses)) {
 			
 			$statusIcon			= "yes";
 				
@@ -1029,7 +1075,7 @@ class AffiliateModelPanel extends JModel {
 				
 		}
 		
-		if (in_array($rawSalesRow->order_status, $ps_vma->_pendingStatuses)) {
+		if (in_array($rawSalesRow->order_status, $vmaHelper->_pendingStatuses)) {
 			
 			$statusIcon			= "pending";
 				
@@ -1037,7 +1083,7 @@ class AffiliateModelPanel extends JModel {
 				
 		}
 		
-		if (in_array($rawSalesRow->order_status, $ps_vma->_cancelledStatuses)) {
+		if (in_array($rawSalesRow->order_status, $vmaHelper->_cancelledStatuses)) {
 			
 			$statusIcon			= "no";
 				
@@ -1059,13 +1105,9 @@ class AffiliateModelPanel extends JModel {
 		
 								  $paidIcon 	. ".png\" alt=\"" 	. $paidAlt 		. "\" />";
 				
-		// date
+		// date and time
 		
-		$sale["date"]			= date("Y-m-d", $rawSalesRow->order_date);
-		
-		// time
-		
-		$sale["time"]			= date("H:i:s", $rawSalesRow->order_date);
+		list($sale["date"], $sale["time"]) = explode(" ", $rawSalesRow->order_date);
 		
 		// return sale
 		
@@ -1079,7 +1121,7 @@ class AffiliateModelPanel extends JModel {
 	
 	function processPaymentsRow($rawPaymentsRow, $frontend = true) {
 		
-		global $vmaSettings, $ps_vma;
+		global $vmaSettings, $vmaHelper;
 		
 		$payment				= array();
 		
@@ -1095,7 +1137,7 @@ class AffiliateModelPanel extends JModel {
 		
 		// amount
 		
-		$payment["amount"]		= $ps_vma->formatAmount($rawPaymentsRow->amount);
+		$payment["amount"]		= $vmaHelper->formatAmount($rawPaymentsRow->amount);
 		
 		// status
 		
@@ -1123,13 +1165,13 @@ class AffiliateModelPanel extends JModel {
 	
 	function validateDetails() {
 		
-		global $ps_vma;
+		global $vmaHelper;
 		
 		// initialize variables
 		
 		$mainframe 						= &JFactory::getApplication();
 		
-		$redirectionLink				= JRoute::_($ps_vma->vmaRoute("index.php?option=com_affiliate&view=panel&subview=details"), false);
+		$redirectionLink				= JRoute::_($vmaHelper->vmaRoute("index.php?option=com_affiliate&view=panel&subview=details"), false);
 		
 		$session						= &JFactory::getSession();
 		
@@ -1250,7 +1292,7 @@ class AffiliateModelPanel extends JModel {
 	
 	function validatePasswordChange() {
 		
-		global $ps_vma;
+		global $vmaHelper;
 		
 		// initialize variables
 		
@@ -1262,7 +1304,7 @@ class AffiliateModelPanel extends JModel {
 		
 		$affiliate						= $session->get("affiliate");
 		
-		$redirectionLink				= JRoute::_($ps_vma->vmaRoute("index.php?option=com_affiliate&view=panel&subview=changepass"), false);
+		$redirectionLink				= JRoute::_($vmaHelper->vmaRoute("index.php?option=com_affiliate&view=panel&subview=changepass"), false);
 		
 		// get password form fields
 		
@@ -1475,7 +1517,7 @@ class AffiliateModelPanel extends JModel {
 
 	function getImagePaths($file, $type) {
 		
-		global $ps_vma;
+		global $vmaHelper;
 		
 		// initiate required variables
 		
@@ -1497,7 +1539,7 @@ class AffiliateModelPanel extends JModel {
 			
 			// check if this is a subfolder
 			
-			else if (stristr($file, "resized")) {
+			else if (strpos($file, "resized") === 0) {
 				
 				$fileType	= "subfolder";
 				
@@ -1577,7 +1619,7 @@ class AffiliateModelPanel extends JModel {
 		
 		if (!file_exists($thumbsPath . $imageFileName)) {
 
-			$ps_vma->resizeImage($image->path, $imageName, "thumb");
+			$vmaHelper->resizeImage($image->path, $imageName, "thumb");
 			
 		}
 		
@@ -1589,6 +1631,44 @@ class AffiliateModelPanel extends JModel {
 		
 		return $image;
 		
+	}
+	
+	/**
+	 * Method to calculate the final and discounted price of a product
+	 */
+	 
+	function calculatePrice(&$rawProductAd) {
+
+		// initiate required variables
+
+		$price 						= new stdClass();
+
+		$price->productPrice 		= 0;
+
+		$price->discountedPrice 	= 0;
+
+		// get product price
+
+		require_once(JPATH_ADMINISTRATOR . DS . "components" . DS . "com_virtuemart" . DS . "helpers" . DS . "config.php");
+
+		require_once(JPATH_ROOT . DS . "administrator" . DS . "components" . DS . "com_virtuemart" . DS . "models" . DS . "product.php");
+
+		$productModel				= new VirtueMartModelProduct();
+		
+		$productPrice				= $productModel->getPrice($rawProductAd->product_id, array(), 1);
+
+		// calculate it
+
+		$price->productPrice		= $productPrice["salesPrice"] + $productPrice["discountAmount"];
+
+		// discount
+
+		$price->discountedPrice		= $productPrice["salesPrice"];
+
+		// return the price
+
+		return $price;
+
 	}
 	
 }

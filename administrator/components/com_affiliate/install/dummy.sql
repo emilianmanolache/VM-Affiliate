@@ -1,0 +1,1 @@
+SELECT * FROM #__menu WHERE 1 = 2

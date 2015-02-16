@@ -2,9 +2,9 @@
 
 /**
  * @package   VM Affiliate
- * @version   4.5.0 May 2011
+ * @version   4.5.2.0 January 2012
  * @author    Globacide Solutions http://www.globacide.com
- * @copyright Copyright (C) 2006 - 2011 Globacide Solutions
+ * @copyright Copyright (C) 2006 - 2012 Globacide Solutions
  * @license   http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 
@@ -14,7 +14,7 @@ defined( '_JEXEC' ) or die( 'Direct access to this location is not allowed.' );
  
 // get vma settings
 
-global $vmaSettings, $ps_vma;
+global $vmaSettings, $vmaHelper;
 
 $user			= &JFactory::getUser();
 
@@ -30,7 +30,7 @@ $displayLogout	= $user->get('guest') || $user->username != $this->affiliate->lin
         
             <span>
             
-                <a href="<?php echo JRoute::_($ps_vma->vmaRoute("index.php?option=com_affiliate&view=panel&subview=preferences")); ?>"><?php echo JText::_("SELECT_PAYOUT_METHOD"); ?></a>
+                <a href="<?php echo JRoute::_($vmaHelper->vmaRoute("index.php?option=com_affiliate&view=panel&subview=preferences")); ?>"><?php echo JText::_("SELECT_PAYOUT_METHOD"); ?></a>
                 
             </span>
             
@@ -62,7 +62,7 @@ $displayLogout	= $user->get('guest') || $user->username != $this->affiliate->lin
         
             <span style="background: url(<?php echo JURI::base(); ?>components/com_affiliate/views/panel/tmpl/images/home_small.png) no-repeat left top;" class="affiliateTopMenuLinkItem">
             
-                <a href="<?php echo JRoute::_($ps_vma->vmaRoute("index.php?option=com_affiliate&view=panel&subview=home")); ?>"><?php echo JText::_("AFFILIATE_PANEL"); ?></a>
+                <a href="<?php echo JRoute::_($vmaHelper->vmaRoute("index.php?option=com_affiliate&view=panel&subview=home")); ?>"><?php echo JText::_("AFFILIATE_PANEL"); ?></a>
                 
             </span>
             
@@ -76,7 +76,7 @@ $displayLogout	= $user->get('guest') || $user->username != $this->affiliate->lin
     
         <span style="background: url(<?php echo JURI::base(); ?>components/com_affiliate/views/panel/tmpl/images/password_small.png) no-repeat left top;" class="affiliateTopMenuLinkItem">
         
-            <a href="<?php echo JRoute::_($ps_vma->vmaRoute("index.php?option=com_affiliate&view=panel&subview=changepass")); ?>"><?php echo JText::_("CHANGE_PASSWORD"); ?></a>
+            <a href="<?php echo JRoute::_($vmaHelper->vmaRoute("index.php?option=com_affiliate&view=panel&subview=changepass")); ?>"><?php echo JText::_("CHANGE_PASSWORD"); ?></a>
             
         </span>
         
@@ -90,7 +90,7 @@ $displayLogout	= $user->get('guest') || $user->username != $this->affiliate->lin
         
         <span style="background: url(<?php echo JURI::base(); ?>components/com_affiliate/views/panel/tmpl/images/logout_small.png) no-repeat left top;" class="affiliateTopMenuLinkItem">
         
-            <a href="<?php echo JRoute::_($ps_vma->vmaRoute("index.php?option=com_affiliate&view=login&task=logout")); ?>"><?php echo JText::_("LOGOUT"); ?></a>
+            <a href="<?php echo JRoute::_($vmaHelper->vmaRoute("index.php?option=com_affiliate&view=login&task=logout")); ?>"><?php echo JText::_("LOGOUT"); ?></a>
             
         </span>
     

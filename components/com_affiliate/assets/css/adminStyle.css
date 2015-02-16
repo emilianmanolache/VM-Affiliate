@@ -302,129 +302,129 @@ div.adminPanelTitleIcon {
 	
 }
 
-div#adminSummaryIcon {
+div.adminSummaryIcon {
 	
-	background:				url(../images/summary_big.png) 							no-repeat left center;
-	
-}
-
-div#adminAffiliatesIcon {
-	
-	background:				url(../images/users_big.png) 							no-repeat left center;
+	background:				url(../images/summary.png) 							no-repeat left center;
 	
 }
 
-div#adminDetailsIcon {
+div.adminAffiliatesIcon {
 	
-	background:				url(../images/affiliate_big.png) 						no-repeat left center;
-	
-}
-
-div#adminPayIcon {
-	
-	background:				url(../images/pay_big.png) 								no-repeat left center;
+	background:				url(../images/users.png) 							no-repeat left center;
 	
 }
 
-div#adminAffiliateAddIcon {
+div.adminDetailsIcon {
 	
-	background:				url(../images/add_big.png) 								no-repeat left center;
-	
-}
-
-div#adminAffiliateUpdateIcon {
-	
-	background:				url(../../views/panel/tmpl/images/details_big.png) 		no-repeat left center;
+	background:				url(../images/affiliate.png) 						no-repeat left center;
 	
 }
 
-div#adminPreferencesIcon {
+div.adminPayIcon {
 	
-	background:				url(../images/preferences_big.png) 						no-repeat left center;
-	
-}
-
-div#adminCommissionRatesIcon {
-	
-	background:				url(../images/commissions_big.png) 						no-repeat left center;
+	background:				url(../images/pay.png) 								no-repeat left center;
 	
 }
 
-div#adminBannersIcon {
+div.adminAffiliateAddIcon {
 	
-	background:				url(../images/banners_big.png) 							no-repeat left center;
-	
-}
-
-div#adminTextAdsIcon {
-	
-	background:				url(../images/textads_big.png) 							no-repeat left center;
+	background:				url(../images/add.png) 								no-repeat left center;
 	
 }
 
-div#adminSizeGroupsIcon {
+div.adminAffiliateUpdateIcon {
 	
-	background:				url(../images/sizegroups_big.png) 						no-repeat left center;
-	
-}
-
-div#adminSizeGroupsEditIcon {
-	
-	background:				url(../images/sizegroupsedit_big.png) 					no-repeat left center;
+	background:				url(../../views/panel/tmpl/images/details.png) 		no-repeat left center;
 	
 }
 
-div#adminProductAdsIcon {
+div.adminPreferencesIcon {
 	
-	background:				url(../images/productads_big.png) 						no-repeat left center;
-	
-}
-
-div#adminCategoryAdsIcon {
-	
-	background:				url(../images/categoryads_big.png) 						no-repeat left center;
+	background:				url(../images/preferences.png) 						no-repeat left center;
 	
 }
 
-div#adminTrafficIcon {
+div.adminCommissionRatesIcon {
 	
-	background:				url(../images/traffic_big.png) 							no-repeat left center;
-	
-}
-
-div#adminSalesIcon {
-	
-	background:				url(../images/sales_big.png) 							no-repeat left center;
+	background:				url(../images/commissions.png) 						no-repeat left center;
 	
 }
 
-div#adminPaymentsIcon {
+div.adminBannersIcon {
 	
-	background:				url(../images/payments_big.png) 						no-repeat left center;
-	
-}
-
-div#adminPaymentMethodsIcon {
-	
-	background:				url(../images/methods_big.png) 							no-repeat left center;
+	background:				url(../images/banners.png) 							no-repeat left center;
 	
 }
 
-div#adminEmailAffiliatesIcon {
+div.adminTextAdsIcon {
 	
-	background:				url(../images/emails_big.png) 							no-repeat left center;
-	
-}
-
-div#adminStatisticsIcon {
-	
-	background:				url(../images/statistics_big.png) 						no-repeat left center;
+	background:				url(../images/textads.png) 							no-repeat left center;
 	
 }
 
-div#adminAboutIcon {
+div.adminSizeGroupsIcon {
 	
-	background:				url(../images/about_big.png) 							no-repeat left center;
+	background:				url(../images/sizegroups.png) 						no-repeat left center;
+	
+}
+
+div.adminSizeGroupsEditIcon {
+	
+	background:				url(../images/sizegroupsedit.png) 					no-repeat left center;
+	
+}
+
+div.adminProductAdsIcon {
+	
+	background:				url(../images/productads.png) 						no-repeat left center;
+	
+}
+
+div.adminCategoryAdsIcon {
+	
+	background:				url(../images/categoryads.png) 						no-repeat left center;
+	
+}
+
+div.adminTrafficIcon {
+	
+	background:				url(../images/traffic.png) 							no-repeat left center;
+	
+}
+
+div.adminSalesIcon {
+	
+	background:				url(../images/sales.png) 							no-repeat left center;
+	
+}
+
+div.adminPaymentsIcon {
+	
+	background:				url(../images/payments.png) 						no-repeat left center;
+	
+}
+
+div.adminPaymentMethodsIcon {
+	
+	background:				url(../images/methods.png) 							no-repeat left center;
+	
+}
+
+div.adminEmailAffiliatesIcon {
+	
+	background:				url(../images/emails.png) 							no-repeat left center;
+	
+}
+
+div.adminStatisticsIcon {
+	
+	background:				url(../images/statistics.png) 						no-repeat left center;
+	
+}
+
+div.adminAboutIcon {
+	
+	background:				url(../images/about.png) 							no-repeat left center;
 	
 }
 

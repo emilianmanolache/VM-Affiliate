@@ -2,9 +2,9 @@
 
 /**
  * @package   VM Affiliate
- * @version   4.5.0 May 2011
+ * @version   4.5.2.0 January 2012
  * @author    Globacide Solutions http://www.globacide.com
- * @copyright Copyright (C) 2006 - 2011 Globacide Solutions
+ * @copyright Copyright (C) 2006 - 2012 Globacide Solutions
  * @license   http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 
@@ -28,7 +28,11 @@ class AffiliateViewLogin extends JView {
 	 
     function display($tpl = null) {
 		
-		global $mainframe, $vmaSettings, $ps_vma;
+		global $vmaSettings, $vmaHelper;
+		
+		// get application
+		
+		$mainframe		= &JFactory::getApplication();
 		
 		// only load footer
 		
@@ -62,13 +66,13 @@ class AffiliateViewLogin extends JView {
 		
 		// get specific login page parameters
 		
-		$generalRates	= $ps_vma->getCommissionRates();
+		$generalRates	= $vmaHelper->getCommissionRates();
 		
-		$formattedRates = $ps_vma->getFormattedCommissionRates();
+		$formattedRates = $vmaHelper->getFormattedCommissionRates();
 		
-		$initialBonus	= $ps_vma->formatAmount($vmaSettings->initial_bonus);
+		$initialBonus	= $vmaHelper->formatAmount($vmaSettings->initial_bonus);
 		
-		$payoutBalance	= $ps_vma->formatAmount($vmaSettings->pay_balance);
+		$payoutBalance	= $vmaHelper->formatAmount($vmaSettings->pay_balance);
 		
 		// set some default page parameters if not set
 		
@@ -78,7 +82,7 @@ class AffiliateViewLogin extends JView {
 		
 		// set the pathway and page title
 
-		$pathway->addItem( JText::_("LOGIN"), JRoute::_($ps_vma->vmaRoute('index.php?option=com_affiliate&view=login')) );
+		$pathway->addItem( JText::_("JLOGIN"), JRoute::_($vmaHelper->vmaRoute('index.php?option=com_affiliate&view=login')) );
 
 		$document->setTitle( $params->get( 'page_title') );
 		

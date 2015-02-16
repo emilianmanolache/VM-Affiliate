@@ -2,9 +2,9 @@
 
 /**
  * @package   VM Affiliate
- * @version   4.5.0 May 2011
+ * @version   4.5.2.0 January 2012
  * @author    Globacide Solutions http://www.globacide.com
- * @copyright Copyright (C) 2006 - 2011 Globacide Solutions
+ * @copyright Copyright (C) 2006 - 2012 Globacide Solutions
  * @license   http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 
@@ -28,7 +28,11 @@ class AffiliateViewPanel extends JView {
 	 
     function display($tpl = null) {
 		
-		global $mainframe, $vmaSettings, $ps_vma;
+		global $vmaSettings, $vmaHelper;
+		
+		// get application
+		
+		$mainframe		= &JFactory::getApplication();
 		
 		// only load footer
 		
@@ -102,7 +106,7 @@ class AffiliateViewPanel extends JView {
 		
 		if ($subview == $tpl && array_key_exists($subview, $pageTitles)) {
 			
-			$pathway->addItem( str_replace("&amp", "&", $pageTitles[$subview]), JRoute::_($ps_vma->vmaRoute($pathwayURL . "&subview=" . $subview)) );
+			$pathway->addItem( str_replace("&amp", "&", $pageTitles[$subview]), JRoute::_($vmaHelper->vmaRoute($pathwayURL . "&subview=" . $subview)) );
 			
 		}
 		
@@ -112,31 +116,31 @@ class AffiliateViewPanel extends JView {
 			
 			// load required variables
 			
-			$generalRates		= $ps_vma->getCommissionRates($affiliate->affiliate_id);
+			$generalRates		= $vmaHelper->getCommissionRates($affiliate->affiliate_id);
 			
-			$formattedRates 	= $ps_vma->getFormattedCommissionRates($affiliate->affiliate_id);
+			$formattedRates 	= $vmaHelper->getFormattedCommissionRates($affiliate->affiliate_id);
 			
-			$currentClicks		= $ps_vma->getClicks($affiliate->affiliate_id, true, false);
+			$currentClicks		= $vmaHelper->getClicks($affiliate->affiliate_id, true, false);
 			
-			$currentUClicks		= $ps_vma->getClicks($affiliate->affiliate_id, true, true);
+			$currentUClicks		= $vmaHelper->getClicks($affiliate->affiliate_id, true, true);
 			
-			$overallClicks		= $ps_vma->getClicks($affiliate->affiliate_id, false, false);
+			$overallClicks		= $vmaHelper->getClicks($affiliate->affiliate_id, false, false);
 			
-			$overallUClicks		= $ps_vma->getClicks($affiliate->affiliate_id, false, true);
+			$overallUClicks		= $vmaHelper->getClicks($affiliate->affiliate_id, false, true);
 			
-			$currentASales		= $ps_vma->getSales($affiliate->affiliate_id, true, true);
+			$currentASales		= $vmaHelper->getSales($affiliate->affiliate_id, true, true);
 			
-			$overallASales		= $ps_vma->getSales($affiliate->affiliate_id, false, true);
+			$overallASales		= $vmaHelper->getSales($affiliate->affiliate_id, false, true);
 			
-			$pendingSales		= $ps_vma->getSales($affiliate->affiliate_id, false, false);
+			$pendingSales		= $vmaHelper->getSales($affiliate->affiliate_id, false, false);
 			
-			$currentBalance		= $ps_vma->formatAmount($affiliate->commissions);
+			$currentBalance		= $vmaHelper->formatAmount($affiliate->commissions);
 			
-			$overallBalance		= $ps_vma->getOverallBalance($affiliate->affiliate_id, $affiliate->commissions);
+			$overallBalance		= $vmaHelper->getOverallBalance($affiliate->affiliate_id, $affiliate->commissions);
 			
 			if ($vmaSettings->multi_tier) {
 				
-				$referredAffs	= $ps_vma->getReferredAffiliates($affiliate->affiliate_id);
+				$referredAffs	= $vmaHelper->getReferredAffiliates($affiliate->affiliate_id);
 				
 				$this->assignRef( 'referredAffs', 	$referredAffs );
 				
@@ -144,9 +148,9 @@ class AffiliateViewPanel extends JView {
 			
 			if ($vmaSettings->offline_tracking && $vmaSettings->offline_type == 3) {
 				
-				$discountRate	= $ps_vma->getDiscountRate($affiliate->affiliate_id);
+				$discountRate	= $vmaHelper->getDiscountRate($affiliate->affiliate_id);
 				
-				$formattedRate	= "-" . ($discountRate["discount_type"] == 1 ? $ps_vma->formatAmount($discountRate["discount_amount"]) : $discountRate["discount_amount"] . "%");
+				$formattedRate	= "-" . ($discountRate["discount_type"] == 1 ? $vmaHelper->formatAmount($discountRate["discount_amount"]) : $discountRate["discount_amount"] . "%");
 				
 				$this->assignRef( 'discountRate', 	$discountRate );
 				
@@ -204,11 +208,13 @@ class AffiliateViewPanel extends JView {
 				
 				if ($categoryID) {
 					
-					$query = "SELECT `category_name` FROM #__vm_category WHERE `category_id` = '" . $categoryID . "'";
+					$lc				= $vmaHelper->getLanguageTag();
+					
+					$query 			= "SELECT `category_name` FROM #__virtuemart_categories_" . $lc . " WHERE `virtuemart_category_id` = '" . $categoryID . "'";
 					
 					$database->setQuery($query);
 					
-					$categoryName = $database->loadResult();
+					$categoryName 	= $database->loadResult();
 					
 					$this->assignRef( "categoryName", $categoryName);
 					
@@ -216,7 +222,7 @@ class AffiliateViewPanel extends JView {
 				
 				// fix squeezebox issue on mootools 1.2
 				
-				$ps_vma->fixSqueezeBox();
+				$vmaHelper->fixSqueezeBox();
 				
 			}
 			
@@ -236,7 +242,7 @@ class AffiliateViewPanel extends JView {
 			
 			$request 	= $type . $period;
 
-			$data		= $ps_vma->getStatisticsData($request);
+			$data		= $vmaHelper->getStatisticsData($request);
 			
 			$link1		= "index.php?option=com_affiliate&view=panel&subview=statistics&type=" 		. $type 	. "&period=";
 			
@@ -272,7 +278,7 @@ class AffiliateViewPanel extends JView {
 		
 		if ($subview == "statistics" && $tpl == "statistics_menu") {
 			
-			$activeStatisticsMenus 	= $ps_vma->getActiveStatsMenus();
+			$activeStatisticsMenus 	= $vmaHelper->getActiveStatsMenus();
 			
 			$this->assignRef( 'activeStatisticsMenus', $activeStatisticsMenus );
 			
@@ -312,7 +318,7 @@ class AffiliateViewPanel extends JView {
 			
 			// get payment methods
 			
-			$paymentMethods			= $ps_vma->getPaymentMethods($affiliate->affiliate_id);
+			$paymentMethods			= $vmaHelper->getPaymentMethods($affiliate->affiliate_id);
 			
 			$this->assignRef( "paymentMethods", $paymentMethods );
 			
@@ -330,15 +336,15 @@ class AffiliateViewPanel extends JView {
 			
 			$editor			= &JFactory::getEditor();
 			
-			// get com_massmail component's language
+			// get com_users component's language
 
 			$language		= &JFactory::getLanguage();
 			
-			$language->load("com_massmail", JPATH_ROOT . DS . "administrator");
+			$language->load("com_users", JPATH_ROOT . DS . "administrator");
 			
 			// fix squeezebox issue on mootools 1.2
 				
-			$ps_vma->fixSqueezeBox();
+			$vmaHelper->fixSqueezeBox();
 				
 			$this->assignRef( "affiliateLink",	$affiliateLink );
 			

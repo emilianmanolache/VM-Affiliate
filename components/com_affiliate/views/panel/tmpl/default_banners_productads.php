@@ -2,9 +2,9 @@
 
 /**
  * @package   VM Affiliate
- * @version   4.5.0 May 2011
+ * @version   4.5.2.0 January 2012
  * @author    Globacide Solutions http://www.globacide.com
- * @copyright Copyright (C) 2006 - 2011 Globacide Solutions
+ * @copyright Copyright (C) 2006 - 2012 Globacide Solutions
  * @license   http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 
@@ -14,7 +14,7 @@ defined( '_JEXEC' ) or die( 'Direct access to this location is not allowed.' );
 
 // get vma settings
 
-global $vmaSettings, $ps_vma;
+global $vmaSettings, $vmaHelper;
 
 // get pagination links
 
@@ -34,7 +34,7 @@ if (count($this->productads) > 0) {
 		
 		?>
         
-        <a href="<?php echo JRoute::_($ps_vma->vmaRoute("index.php?option=com_affiliate&view=panel&subview=banners&section=productadscategories")); ?>">
+        <a href="<?php echo JRoute::_($vmaHelper->vmaRoute("index.php?option=com_affiliate&view=panel&subview=banners&section=productadscategories")); ?>">
         
             &lt;&lt; <?php echo JText::_("CATEGORIES"); ?></a>
             

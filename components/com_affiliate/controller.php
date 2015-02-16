@@ -2,9 +2,9 @@
 
 /**
  * @package   VM Affiliate
- * @version   4.5.0 May 2011
+ * @version   4.5.2.0 January 2012
  * @author    Globacide Solutions http://www.globacide.com
- * @copyright Copyright (C) 2006 - 2011 Globacide Solutions
+ * @copyright Copyright (C) 2006 - 2012 Globacide Solutions
  * @license   http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 
@@ -28,7 +28,7 @@ class AffiliateController extends JController {
 	 
     function display() {
 		
-		global $ps_vma, $vmaSettings;
+		global $vmaHelper, $vmaSettings;
 		
 		// fail if the vm affiliate helper plugin is not installed or is disabled
 		
@@ -110,7 +110,7 @@ class AffiliateController extends JController {
 		
 		if ($subview == "statistics") {
 			
-			$ps_vma->getActiveStatsSection();
+			$vmaHelper->getActiveStatsSection();
 		
 		}
 		
@@ -162,11 +162,11 @@ class AffiliateController extends JController {
 	 
 	function login() {
 		
-		global $ps_vma;
+		global $vmaHelper;
 		
 		$session 	= &JFactory::getSession();
 		
-		$redirect	= JRoute::_($ps_vma->vmaRoute("index.php?option=com_affiliate&view=login"), false);
+		$redirect	= JRoute::_($vmaHelper->vmaRoute("index.php?option=com_affiliate&view=login"), false);
 		
 		// check for request forgeries
 		
@@ -186,7 +186,7 @@ class AffiliateController extends JController {
 		
 		if (empty($username) || empty($password)) {
 			
-			$this->setRedirect($redirect, JText::_("LOGIN_INCOMPLETE"), "error");
+			$this->setRedirect($redirect, JText::_("JGLOBAL_AUTH_EMPTY_PASS_NOT_ALLOWED"), "error");
 			
 			return false;
 				
@@ -210,9 +210,9 @@ class AffiliateController extends JController {
 			
 			// check if the affiliate is blocked
 		
-			if ($ps_vma->isBlocked($affiliate->affiliate_id)) {
+			if ($vmaHelper->isBlocked($affiliate->affiliate_id)) {
 				
-				$this->setRedirect($redirect, JText::_("LOGIN_BLOCKED"), "error");
+				$this->setRedirect($redirect, JText::_("JERROR_NOLOGIN_BLOCKED"), "error");
 			
 				return false;
 				
@@ -232,7 +232,7 @@ class AffiliateController extends JController {
 		
 		else {
 			
-			$this->setRedirect($redirect, JText::_("LOGIN_INCORRECT"), "error");
+			$this->setRedirect($redirect, JText::_("JGLOBAL_AUTH_INCORRECT"), "error");
 			
 			return false;
 			
@@ -246,13 +246,13 @@ class AffiliateController extends JController {
 	 
 	function logout() {
 		
-		global $ps_vma;
+		global $vmaHelper;
 		
 		$session = &JFactory::getSession();
 		
 		$session->clear("affiliate");
 		
-		$this->setRedirect(JRoute::_($ps_vma->vmaRoute("index.php?option=com_affiliate&view=login"), false), JText::_("LOGOUT_SUCCESS"), "message");
+		$this->setRedirect(JRoute::_($vmaHelper->vmaRoute("index.php?option=com_affiliate&view=login"), false), JText::_("You have successfully been logged out of the affiliate panel!"), "message");
 			
 		return true;
 		
@@ -264,7 +264,7 @@ class AffiliateController extends JController {
 	 
 	function register() {
 		
-		global $vmaSettings, $ps_vma;
+		global $vmaSettings, $vmaHelper;
 		
 		$session 			= &JFactory::getSession();
 		
@@ -280,7 +280,7 @@ class AffiliateController extends JController {
 		
 		if (!$vmaSettings->allow_signups) {
 			
-			$this->setRedirect(JRoute::_($ps_vma->vmaRoute("index.php?option=com_affiliate&view=login"), false), JText::_("New affiliate applications are not currently accepted."), "error");
+			$this->setRedirect(JRoute::_($vmaHelper->vmaRoute("index.php?option=com_affiliate&view=login"), false), JText::_("New affiliate applications are not currently accepted."), "error");
 			
 			return false;
 			
@@ -358,7 +358,7 @@ class AffiliateController extends JController {
 		
 		if (!$vmaSettings->auto_block) {
 			
-			$ps_vma->updateOfflineNameValue($affiliateID, true);
+			$vmaHelper->updateOfflineNameValue($affiliateID, true);
 		
 		}
 		
@@ -374,7 +374,7 @@ class AffiliateController extends JController {
 		
 		$affiliateMail->setBody(JText::sprintf("WELCOME_EMAIL", "\r\n\r\n", $newAffiliate["username"] . "\r\n\r\n", 
 		
-								"\r\n" . JRoute::_($ps_vma->vmaRoute(JURI::base() . "index.php?option=com_affiliate&view=login")) . "\r\n\r\n", 
+								"\r\n" . JRoute::_($vmaHelper->vmaRoute(JURI::base() . "index.php?option=com_affiliate&view=login")) . "\r\n\r\n", 
 								
 								"\r\n" . $config->getValue( 'config.sitename' ) . "\r\n" . JURI::base()));
 		
@@ -398,13 +398,13 @@ class AffiliateController extends JController {
 							
 							JText::_("AFFILIATE_ID") . ": " . $affiliateID . "\r\n" . 
 							
-							JText::_("USERNAME") . ": " . $newAffiliate["username"]);
+							JText::_("JGLOBAL_USERNAME") . ": " . $newAffiliate["username"]);
 							
 		$adminMail->send();
 		
 		// redirect to the login page
 		
-		$this->setRedirect(JRoute::_($ps_vma->vmaRoute("index.php?option=com_affiliate&view=login"), false), JText::_("SUCCESSFUL_REGISTRATION"), "message");
+		$this->setRedirect(JRoute::_($vmaHelper->vmaRoute("index.php?option=com_affiliate&view=login"), false), JText::_("SUCCESSFUL_REGISTRATION"), "message");
 			
 		return true;
 		
@@ -416,7 +416,7 @@ class AffiliateController extends JController {
 	 
 	function lostPassword() {
 		
-		global $vmaSettings, $ps_vma;
+		global $vmaSettings, $vmaHelper;
 		
 		$session 			= &JFactory::getSession();
 		
@@ -458,7 +458,7 @@ class AffiliateController extends JController {
 		
 		if (!$affiliateID) {
 			
-			$this->setRedirect(JRoute::_($ps_vma->vmaRoute("index.php?option=com_affiliate&view=lostpassword"), false), JText::_("NO_AFFILIATE_FOUND"), "error");
+			$this->setRedirect(JRoute::_($vmaHelper->vmaRoute("index.php?option=com_affiliate&view=lostpassword"), false), JText::_("NO_AFFILIATE_FOUND"), "error");
 			
 			return false;
 			
@@ -492,7 +492,7 @@ class AffiliateController extends JController {
 		
 		// redirect to the login page
 		
-		$this->setRedirect(JRoute::_($ps_vma->vmaRoute("index.php?option=com_affiliate&view=login"), false), JText::_("NEW_PASSWORD_SENT"), "message");
+		$this->setRedirect(JRoute::_($vmaHelper->vmaRoute("index.php?option=com_affiliate&view=login"), false), JText::_("NEW_PASSWORD_SENT"), "message");
 			
 		return true;
 		
@@ -504,7 +504,7 @@ class AffiliateController extends JController {
 	 
 	function changePassword() {
 		
-		global $vmaSettings, $ps_vma;
+		global $vmaSettings, $vmaHelper;
 		
 		$session 			= &JFactory::getSession();
 		
@@ -544,7 +544,7 @@ class AffiliateController extends JController {
 		
 		// redirect to the login page
 		
-		$this->setRedirect(JRoute::_($ps_vma->vmaRoute("index.php?option=com_affiliate&view=panel"), false), JText::_("PASSWORD_CHANGED"), "message");
+		$this->setRedirect(JRoute::_($vmaHelper->vmaRoute("index.php?option=com_affiliate&view=panel"), false), JText::_("PASSWORD_CHANGED"), "message");
 			
 		return true;
 		
@@ -556,7 +556,7 @@ class AffiliateController extends JController {
 	 
 	function details() {
 		
-		global $vmaSettings, $ps_vma;
+		global $vmaSettings, $vmaHelper;
 		
 		// initiate variables
 		
@@ -610,7 +610,7 @@ class AffiliateController extends JController {
 		
 		// update the offline tracking name values
 		
-		$ps_vma->updateOfflineNameValue($affiliate->affiliate_id, "update");
+		$vmaHelper->updateOfflineNameValue($affiliate->affiliate_id, "update");
 		
 		// update the affiliate's session object
 		
@@ -618,7 +618,7 @@ class AffiliateController extends JController {
 		
 		// redirect to the login page
 		
-		$this->setRedirect(JRoute::_($ps_vma->vmaRoute("index.php?option=com_affiliate&view=panel&subview=details"), false), JText::_("DETAILS_UPDATED"), "message");
+		$this->setRedirect(JRoute::_($vmaHelper->vmaRoute("index.php?option=com_affiliate&view=panel&subview=details"), false), JText::_("DETAILS_UPDATED"), "message");
 			
 		return true;
 		
@@ -672,6 +672,8 @@ class AffiliateController extends JController {
 	 
 	function previewAd() {
 		
+		global $vmaHelper;
+		
 		// initiate variables
 		
 		$type 				= JRequest::getVar('type', 'banners');
@@ -700,23 +702,57 @@ class AffiliateController extends JController {
 			
 			case 'productads':
 		
-				$query 		= "SELECT product.*, price.`product_price` AS product_price, tax.`tax_rate` AS product_tax, discount.`amount` AS discount_amount, " . 
-						
-							  "discount.`is_percent` AS discount_percentage, discount.`start_date` AS discount_start, discount.`end_date` AS discount_end " . 
+				$lc			= $vmaHelper->getLanguageTag();
+				
+				$query 		= "SELECT product.`virtuemart_product_id` AS product_id, details.`product_name`, " . 
 							  
-							  "FROM #__vm_product product LEFT JOIN #__vm_product_price price ON product.`product_id` = price.`product_id` " . 
+							  "medias.`file_url_thumb`, price.`product_price` AS product_price, " . 
 							  
-							  "LEFT JOIN #__vm_tax_rate tax ON product.`product_tax_id` = tax.`tax_rate_id` " . 
+							  "tax.`calc_value` AS product_tax, tax.`calc_value_mathop` AS product_tax_math, " .
 							  
-							  "LEFT JOIN #__vm_product_discount discount ON product.`product_discount_id` = discount.`discount_id` " . 
+							  "tax.`publish_up` AS tax_start, tax.`publish_down` AS tax_end, " .  
 							  
-							  "WHERE product.`product_id` = '" . $itemID . "' AND price.`shopper_group_id` = '5'";
+							  "discount.`calc_value` AS product_discount, discount.`calc_value_mathop` AS product_discount_math, discount.`calc_kind` AS discount_type, " .
+							  
+							  "discount.`publish_up` AS discount_start, discount.`publish_down` AS discount_end, " . 
+							  
+							  "price.`override` AS discount_override, price.`product_override_price` AS final_discount, " . 
+							  
+							  "MIN(price.`price_quantity_start`) FROM #__virtuemart_products product " . 
+							  
+							  "LEFT JOIN #__virtuemart_products_" . $lc . " details ON product.`virtuemart_product_id` = details.`virtuemart_product_id` " . 
+							  
+							  "LEFT JOIN #__virtuemart_product_medias pmedias ON product.`virtuemart_product_id` = pmedias.`virtuemart_product_id` AND pmedias.`ordering` = '1' " . 
+							  
+							  "LEFT JOIN #__virtuemart_medias medias ON pmedias.`virtuemart_media_id` = medias.`virtuemart_media_id` " . 
+							  
+							  "LEFT JOIN #__virtuemart_product_prices price ON product.`virtuemart_product_id` = price.`virtuemart_product_id` " . 
+							  
+							  "LEFT JOIN #__virtuemart_calcs tax ON price.`product_tax_id` = tax.`virtuemart_calc_id` " . 
+							  
+							  "LEFT JOIN #__virtuemart_calcs discount ON price.`product_discount_id` = discount.`virtuemart_calc_id` " . 
+							  
+							  "WHERE product.`virtuemart_product_id` = '" . $itemID . "' AND product.`published` = '1' " . 
+							  
+							  "AND medias.`file_is_downloadable` = '0' AND medias.`file_is_forSale` = '0' AND medias.`file_url_thumb` != '' AND " . 
+								  
+							  "(price.`virtuemart_shoppergroup_id` = '5' OR price.`virtuemart_shoppergroup_id` = '0' OR ISNULL(price.`virtuemart_shoppergroup_id`)) ";
 				
 				break;
 			
 			case 'categoryads':
 		
-				$query 		= "SELECT * FROM #__vm_category WHERE `category_id` = '" . $itemID . "'";
+				$lc			= $vmaHelper->getLanguageTag();
+				
+				$query 		= "SELECT category.`virtuemart_category_id`, medias.`file_url_thumb`, details.`category_name` FROM #__virtuemart_categories category " . 
+								  
+							  "LEFT JOIN #__virtuemart_categories_" . $lc . " details ON details.`virtuemart_category_id` = category.`virtuemart_category_id` " . 
+							  
+							  "LEFT JOIN #__virtuemart_category_medias cmedias ON category.`virtuemart_category_id` = cmedias.`virtuemart_category_id` " . 
+							  
+							  "LEFT JOIN #__virtuemart_medias medias ON cmedias.`virtuemart_media_id` = medias.`virtuemart_media_id` " . 
+							  
+							  "WHERE category.`virtuemart_category_id` = '" . $itemID . "' AND category.`published` = '1' ";
 				
 				break;
 					
@@ -727,7 +763,7 @@ class AffiliateController extends JController {
 		$database->setQuery( $query );
 		
 		$database->query();
-			
+
 		$item				= $database->loadObjectList();
 
 		$model 				= $this->getModel("panel");
@@ -750,7 +786,7 @@ class AffiliateController extends JController {
 	 
 	function emails() {
 		
-		global $vmaSettings, $ps_vma;
+		global $vmaSettings, $vmaHelper;
 		
 		// get affiliate object
 		
@@ -774,7 +810,7 @@ class AffiliateController extends JController {
 		
 		if (!$recipients || !$subject || !$message) {
 			
-			$this->setRedirect(JRoute::_($ps_vma->vmaRoute("index.php?option=com_affiliate&view=panel&subview=emails"), false), JText::_("FILL_IN_ALL_FIELDS"), "error");
+			$this->setRedirect(JRoute::_($vmaHelper->vmaRoute("index.php?option=com_affiliate&view=panel&subview=emails"), false), JText::_("FILL_IN_ALL_FIELDS"), "error");
 			
 			return false;
 			
@@ -824,7 +860,7 @@ class AffiliateController extends JController {
 							
 		if (!$affiliateMail->send()) {
 			
-			$this->setRedirect(JRoute::_($ps_vma->vmaRoute("index.php?option=com_affiliate&view=panel&subview=emails"), false), JText::_("EMAIL_SENDING_FAILURE"), "error");
+			$this->setRedirect(JRoute::_($vmaHelper->vmaRoute("index.php?option=com_affiliate&view=panel&subview=emails"), false), JText::_("EMAIL_SENDING_FAILURE"), "error");
 			
 			return false;
 				
@@ -832,7 +868,7 @@ class AffiliateController extends JController {
 		
 		else {
 			
-			$this->setRedirect(JRoute::_($ps_vma->vmaRoute("index.php?option=com_affiliate&view=panel&subview=emails"), false), JText::sprintf("EMAIL_SENDING_SUCCESS", count($affiliateMail->bcc)));
+			$this->setRedirect(JRoute::_($vmaHelper->vmaRoute("index.php?option=com_affiliate&view=panel&subview=emails"), false), JText::sprintf("EMAIL_SENDING_SUCCESS", count($recipientsBCC)));
 			
 			return true;
 			
@@ -846,7 +882,7 @@ class AffiliateController extends JController {
 	
 	function paymentMethod() {
 		
-		global $ps_vma;
+		global $vmaHelper;
 		
 		// get required variables
 		
@@ -864,7 +900,7 @@ class AffiliateController extends JController {
 		
 		if (!$paymentMethod) {
 			
-			$this->setRedirect(JRoute::_($ps_vma->vmaRoute("index.php?option=com_affiliate&view=panel&subview=preferences"), false), JText::_("PROVIDE_PAYMENT_METHOD"), "error");
+			$this->setRedirect(JRoute::_($vmaHelper->vmaRoute("index.php?option=com_affiliate&view=panel&subview=preferences"), false), JText::_("PROVIDE_PAYMENT_METHOD"), "error");
 			
 			return false;
 			
@@ -894,7 +930,7 @@ class AffiliateController extends JController {
 				
 				if ($paymentMethod == '1' && $paymentFieldID == '1' && !$paymentValue) {
 					
-					$this->setRedirect(JRoute::_($ps_vma->vmaRoute("index.php?option=com_affiliate&view=panel&subview=preferences"), false), JText::_("PROVIDE_EMAIL_ADDRESS"), "error");
+					$this->setRedirect(JRoute::_($vmaHelper->vmaRoute("index.php?option=com_affiliate&view=panel&subview=preferences"), false), JText::_("PROVIDE_EMAIL_ADDRESS"), "error");
 			
 					return false;
 			
@@ -938,7 +974,7 @@ class AffiliateController extends JController {
 		
 		// show confirmation message
 		
-		$this->setRedirect(JRoute::_($ps_vma->vmaRoute("index.php?option=com_affiliate&view=panel&subview=preferences"), false), JText::_("PAYMENT_INFORMATION_UPDATED"), "message");
+		$this->setRedirect(JRoute::_($vmaHelper->vmaRoute("index.php?option=com_affiliate&view=panel&subview=preferences"), false), JText::_("PAYMENT_INFORMATION_UPDATED"), "message");
 			
 		return true;
 		
@@ -950,7 +986,7 @@ class AffiliateController extends JController {
 	 
 	function linkTo() {
 		
-		global $ps_vma;
+		global $vmaHelper;
 		
 		$session			= &JFactory::getSession();
 		
@@ -982,7 +1018,7 @@ class AffiliateController extends JController {
 				
 				if (!$username) {
 					
-					$this->setRedirect(JRoute::_($ps_vma->vmaRoute($redirectLink), false), JText::_("PROVIDE_USERNAME"), "error");
+					$this->setRedirect(JRoute::_($vmaHelper->vmaRoute($redirectLink), false), JText::_("PROVIDE_USERNAME"), "error");
 			
 					return false;
 					
@@ -990,7 +1026,7 @@ class AffiliateController extends JController {
 				
 				if (!$password) {
 					
-					$this->setRedirect(JRoute::_($ps_vma->vmaRoute($redirectLink), false), JText::_("PROVIDE_PASSWORD"), "error");
+					$this->setRedirect(JRoute::_($vmaHelper->vmaRoute($redirectLink), false), JText::_("PROVIDE_PASSWORD"), "error");
 			
 					return false;
 					
@@ -1008,7 +1044,7 @@ class AffiliateController extends JController {
 				
 				if (empty($saltedPassword)) {
 					
-					$this->setRedirect(JRoute::_($ps_vma->vmaRoute($redirectLink), false), JText::_("E_LOGIN_AUTHENTICATE"), "error");
+					$this->setRedirect(JRoute::_($vmaHelper->vmaRoute($redirectLink), false), JText::_("E_LOGIN_AUTHENTICATE"), "error");
 			
 					return false;
 					
@@ -1024,7 +1060,7 @@ class AffiliateController extends JController {
 				
 				if ($password != $saltedPassword) {
 					
-					$this->setRedirect(JRoute::_($ps_vma->vmaRoute($redirectLink), false), JText::_("INCORRECT_PASSWORD"), "error");
+					$this->setRedirect(JRoute::_($vmaHelper->vmaRoute($redirectLink), false), JText::_("INCORRECT_PASSWORD"), "error");
 		
 					return false;
 					
@@ -1042,7 +1078,7 @@ class AffiliateController extends JController {
 				
 				if ($alreadyLinked) {
 					
-					$this->setRedirect(JRoute::_($ps_vma->vmaRoute($redirectLink), false), JText::_("ALREADY_LINKED"), "error");
+					$this->setRedirect(JRoute::_($vmaHelper->vmaRoute($redirectLink), false), JText::_("ALREADY_LINKED"), "error");
 		
 					return false;
 					
@@ -1062,7 +1098,7 @@ class AffiliateController extends JController {
 				
 				// show confirmation message
 				
-				$this->setRedirect(JRoute::_($ps_vma->vmaRoute($redirectLink), false), JText::_("AFFILIATE_LINKED"), "message");
+				$this->setRedirect(JRoute::_($vmaHelper->vmaRoute($redirectLink), false), JText::_("AFFILIATE_LINKED"), "message");
 	
 				return true;
 				
@@ -1086,7 +1122,7 @@ class AffiliateController extends JController {
 				
 				// show confirmation message
 				
-				$this->setRedirect(JRoute::_($ps_vma->vmaRoute($redirectLink), false), JText::_("UNLINKED"), "message");
+				$this->setRedirect(JRoute::_($vmaHelper->vmaRoute($redirectLink), false), JText::_("UNLINKED"), "message");
 			
 				return true;
 				
@@ -1320,7 +1356,7 @@ class AffiliateController extends JController {
 
 	function updateTransaction($affiliateID, $transactionID, $status) {
 
-		global $ps_vma;
+		global $vmaHelper;
 		
 		// initiate required variables
 		
@@ -1380,7 +1416,7 @@ class AffiliateController extends JController {
 		
 		$query		= "UPDATE #__vm_affiliate_orders SET `paid` = '" 		. ($status == "C" ? "1" : "0") 		. "' WHERE " . 
 		
-					  $ps_vma->buildStatusesCondition("negative", "AND", "!=", "order_status")  				. 
+					  $vmaHelper->buildStatusesCondition("negative", "AND", "!=", "order_status")  				. 
 					  
 					  " AND (`affiliate_id` = '" . $affiliateID 			. "'" . ($prevDate && $status != "C" ? " AND `date` >= '" . $prevDate . "'" : NULL) 	. 
 					  
@@ -1410,7 +1446,7 @@ class AffiliateController extends JController {
 
 	function processUploadedBanner() {
 		
-		global $ps_vma;
+		global $vmaHelper;
 		
 		// initiate required variables
 		
@@ -1506,7 +1542,7 @@ class AffiliateController extends JController {
 		
 		if ($type != "swf") {
 			
-			$ps_vma->resizeImage($uploadedFile, $md5Hash, "thumbbig");
+			$vmaHelper->resizeImage($uploadedFile, $md5Hash, "thumbbig");
 			
 		}
 		

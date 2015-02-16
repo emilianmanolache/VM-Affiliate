@@ -2,9 +2,9 @@
 
 /**
  * @package   VM Affiliate
- * @version   4.5.0 May 2011
+ * @version   4.5.2.0 January 2012
  * @author    Globacide Solutions http://www.globacide.com
- * @copyright Copyright (C) 2006 - 2011 Globacide Solutions
+ * @copyright Copyright (C) 2006 - 2012 Globacide Solutions
  * @license   http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 
@@ -12,7 +12,7 @@
 
 defined( '_JEXEC' ) or die( 'Direct access to this location is not allowed.' );
 
-global $ps_vma;
+global $vmaHelper;
 
 ?>
 
@@ -24,7 +24,7 @@ global $ps_vma;
         
             <?php
         
-                echo !$this->paid ? "<a href=\"" . JRoute::_($ps_vma->vmaRoute("index.php?option=com_affiliate&view=panel&subview=traffic&paid=1&unique=" . $this->unique)) . "\">" : NULL; 
+                echo !$this->paid ? "<a href=\"" . JRoute::_($vmaHelper->vmaRoute("index.php?option=com_affiliate&view=panel&subview=traffic&paid=1&unique=" . $this->unique)) . "\">" : NULL; 
             
                 echo JText::_("OVERALL"); 
                 
@@ -48,7 +48,7 @@ global $ps_vma;
         
             <?php
         
-                echo $this->paid ? "<a href=\"" . JRoute::_($ps_vma->vmaRoute("index.php?option=com_affiliate&view=panel&subview=traffic&paid=0&unique=" . $this->unique)) . "\">" : NULL; 
+                echo $this->paid ? "<a href=\"" . JRoute::_($vmaHelper->vmaRoute("index.php?option=com_affiliate&view=panel&subview=traffic&paid=0&unique=" . $this->unique)) . "\">" : NULL; 
             
                 echo JText::_("CURRENT"); 
                 
@@ -72,7 +72,7 @@ global $ps_vma;
         
             <?php
         
-                echo $this->unique ? "<a href=\"" . JRoute::_($ps_vma->vmaRoute("index.php?option=com_affiliate&view=panel&subview=traffic&unique=0&paid=" . $this->paid)) . "\">" : NULL; 
+                echo $this->unique ? "<a href=\"" . JRoute::_($vmaHelper->vmaRoute("index.php?option=com_affiliate&view=panel&subview=traffic&unique=0&paid=" . $this->paid)) . "\">" : NULL; 
             
                 echo JText::_("CLICKS"); 
                 
@@ -96,7 +96,7 @@ global $ps_vma;
         
             <?php
         
-                echo !$this->unique ? "<a href=\"" . JRoute::_($ps_vma->vmaRoute("index.php?option=com_affiliate&view=panel&subview=traffic&unique=1&paid=" . $this->paid)) . "\">" : NULL; 
+                echo !$this->unique ? "<a href=\"" . JRoute::_($vmaHelper->vmaRoute("index.php?option=com_affiliate&view=panel&subview=traffic&unique=1&paid=" . $this->paid)) . "\">" : NULL; 
             
                 echo JText::_("UNIQUE_CLICKS"); 
                 

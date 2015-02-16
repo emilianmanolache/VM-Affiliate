@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<metadata>
+
+	<layout title="Affiliate Login and Registration Page" option="com_affiliate">
+		<help
+			key = "Affiliate login and registration page"
+		/>		<message>
+			<![CDATA[This is the affiliates login and registration page.]]>
+		</message>
+	</layout>
+</metadata>
