@@ -16,7 +16,7 @@ defined( '_JEXEC' ) or die( 'Direct access to this location is not allowed.' );
 
 jimport( 'joomla.application.component.model');
 
-if (!class_exists('VmModel')) require(JPATH_VM_ADMINISTRATOR . DS . 'helpers' . DS . 'vmmodel.php');
+if (!class_exists('VmModel')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'vmmodel.php');
 
 /**
  * Model for VM Affiliate

@@ -14,15 +14,13 @@ defined( '_JEXEC' ) or die( 'Direct access to this location is not allowed.' );
 
 // load the view framework
 
-jimport( 'joomla.application.component.view');
-
-jimport( 'joomla.html.pane' );
+if (!class_exists('VmViewAdmin')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'vmviewadmin.php');
 
 /**
  * View file for the VM Affiliate backend
  */
  
-class VirtuemartViewVma_payments extends JView {
+class VirtuemartViewVma_payments extends VmViewAdmin {
 
 	/**
 	 * Display the view
@@ -32,7 +30,7 @@ class VirtuemartViewVma_payments extends JView {
 		
 		global $vmaHelper;
 		
-		$model 		= $this->getModel();
+		$model 		= VmModel::getModel('vma_payments');
 			
 		$this->loadHelper('adminui');
 
@@ -41,7 +39,9 @@ class VirtuemartViewVma_payments extends JView {
 		$this->loadHelper('html');
 			
 		$search		= &JRequest::getVar("search");
-		
+
+        $this->lists["search"] = $search;
+
 		$pagination = $model->getPagination();
 		
 		$payments	= $model->getData();

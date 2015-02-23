@@ -45,8 +45,8 @@ JHTML::_("behavior.modal", "a.affiliateModal");
             <tr>
     
                 <td align="left" width="100%">
-    
-                    <?php echo ShopFunctions::displayDefaultViewSearch('', $this->search); ?>
+
+                    <?php echo $this->displayDefaultViewSearch(); ?>
     
                 </td>
     

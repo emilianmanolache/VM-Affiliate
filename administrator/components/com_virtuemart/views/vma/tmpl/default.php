@@ -18,7 +18,7 @@ global $vmaHelper, $vmaSettings;
 
 // start the virtuemart administration area
 
-$vmaHelper->startAdminArea($this);
+AdminUIHelper::startAdminArea($this);
 
 // display the title
 

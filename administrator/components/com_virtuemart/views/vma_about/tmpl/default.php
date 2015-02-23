@@ -26,7 +26,7 @@ $link 				= $vmaHelper->getAdminLink();
 
 // display the title
 
-JToolBarHelper::title(JText::_("ABOUT") . "VM Affiliate 4.5", 'head adminAboutIcon');
+JToolBarHelper::title(JText::_("ABOUT") . " VM Affiliate 4.5", 'head adminAboutIcon');
 
 ?>
 

@@ -14,15 +14,13 @@ defined( '_JEXEC' ) or die( 'Direct access to this location is not allowed.' );
 
 // load the view framework
 
-jimport( 'joomla.application.component.view');
-
-jimport( 'joomla.html.pane' );
+if (!class_exists('VmViewAdmin')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'vmviewadmin.php');
 
 /**
  * View file for the VM Affiliate backend
  */
  
-class VirtuemartViewVma_affiliates extends JView {
+class VirtuemartViewVma_affiliates extends VmViewAdmin {
 
 	/**
 	 * Display the view
@@ -32,7 +30,7 @@ class VirtuemartViewVma_affiliates extends JView {
 		
 		global $vmaHelper;
 		
-		$model 		= $this->getModel();
+		$model 		= VmModel::getModel('vma_affiliates');
 			
 		$this->loadHelper('adminui');
 
@@ -41,7 +39,7 @@ class VirtuemartViewVma_affiliates extends JView {
 		$this->loadHelper('html');
 		
 		$task		= &JRequest::getVar("task");
-		
+
 		if ($task == "edit" || $task == "details" || $task == "preferences" || $task == "password") {
 			
 			$affiliateID		= &JRequest::getVar("affiliate_id");
@@ -71,7 +69,9 @@ class VirtuemartViewVma_affiliates extends JView {
 		else {
 			
 			$search		= &JRequest::getVar("search");
-			
+
+            $this->lists["search"] = $search;
+
 			$pagination = $model->getPagination();
 			
 			$affiliates	= $model->getData();

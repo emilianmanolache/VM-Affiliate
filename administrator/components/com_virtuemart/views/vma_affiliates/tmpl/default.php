@@ -18,7 +18,7 @@ global $vmaHelper, $vmaSettings;
 
 // start the virtuemart administration area
 
-AdminUIHelper::startAdminArea($this); 
+AdminUIHelper::startAdminArea($this);
 
 // display the title
 
@@ -42,7 +42,7 @@ $link 			= $vmaHelper->getAdminLink();
     
                 <td align="left" width="100%">
     
-                    <?php echo ShopFunctions::displayDefaultViewSearch('', $this->search); ?>
+                    <?php echo $this->displayDefaultViewSearch(); ?>
     
                 </td>
     

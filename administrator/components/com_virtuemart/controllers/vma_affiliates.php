@@ -14,31 +14,24 @@ defined( '_JEXEC' ) or die( 'Direct access to this location is not allowed.' );
 
 // import the component controller library
 
-jimport('joomla.application.component.controller');
+if (!class_exists('VmController')) require(VMPATH_ADMIN . DS . 'helpers' . DS . 'vmcontroller.php');
 
 /**
  * VM Affiliate backend controller
  */
 
-class VirtuemartControllerVma_affiliates extends JController {
-	
-	/**
-	 * Method to display the view
-	 */
-	 
-	function display() {
+class VirtuemartControllerVma_affiliates extends VmController {
 
-		$document 	= JFactory::getDocument();
-		
-		$viewName 	= JRequest::getWord('view', '');
-		
-		$viewType 	= $document->getType();
-		
-		$view 		= $this->getView($viewName, $viewType);
 
-		parent::display();
-		
-	}
+    /**
+     * Method to display the view
+     */
+
+    public function __construct() {
+
+        parent::__construct();
+
+    }
 	
 	/**
 	 * Method to toggle an affiliate's status between enabled and disabled
