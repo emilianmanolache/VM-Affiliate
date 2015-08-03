@@ -88,7 +88,7 @@ class VirtueMartModelVma_sales extends VmModel {
 		
 						  "SELECT orders.*, CONCAT(affiliates.`fname`, ' ', affiliates.`lname`) AS name, " . 
 						  
-						  "(vmorders.`order_salesPrice` - vmorders.`coupon_discount`) " . 
+						  "(vmorders.`order_subtotal` - vmorders.`coupon_discount`) " .
 
 				  		  "AS order_subtotal, vmorders.`order_total` FROM #__vm_affiliate_orders orders " . 
 						  

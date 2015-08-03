@@ -694,7 +694,7 @@ class plgSystemVma extends JPlugin {
 				
 		// prepare and run the query
 		
-		$query 					= "SELECT ao.`order_id` AS order_id, (o.`order_salesPrice` - o.`coupon_discount`) AS order_subtotal, "				. 
+		$query 					= "SELECT ao.`order_id` AS order_id, (o.`order_subtotal` - o.`coupon_discount`) AS order_subtotal, "				.
 		
 								  "ao.`affiliate_id` AS affiliate_id, ao.`order_status` AS aff_order_status, o.`order_status` AS order_status " . 
 				
@@ -1042,15 +1042,15 @@ class plgSystemVma extends JPlugin {
 			
 			$affiliateMail->addRecipient($affiliateEmail);
 			
-			$affiliateMail->setSender(array($this->_config->getValue( 'config.mailfrom' ), $this->_config->getValue( 'config.fromname' )));
+			$affiliateMail->setSender(array($this->_config->get( 'mailfrom' ), $this->_config->get( 'fromname' )));
 			
-			$affiliateMail->setSubject(JText::sprintf("NEW_SALE_SUBJECT", $this->_config->getValue( 'config.sitename' ) . "!"));
+			$affiliateMail->setSubject(JText::sprintf("NEW_SALE_SUBJECT", $this->_config->get( 'sitename' ) . "!"));
 			
-			$affiliateMail->setBody(JText::sprintf("NEW_SALE_SUBJECT", $this->_config->getValue( 'config.sitename' ) . "!") . "\r\n\r\n" . 
+			$affiliateMail->setBody(JText::sprintf("NEW_SALE_SUBJECT", $this->_config->get( 'sitename' ) . "!") . "\r\n\r\n" .
 			
 									JText::sprintf("NEW_SALE_MESSAGE", "\r\n" . JRoute::_($vmaHelper->vmaRoute($this->_website . "index.php?option=com_affiliate"), false) . 
 									
-									"\r\n\r\n" . $this->_config->getValue( 'config.sitename' ) . "\r\n" . $this->_website));
+									"\r\n\r\n" . $this->_config->get( 'sitename' ) . "\r\n" . $this->_website));
 									
 			$affiliateMail->send();
 

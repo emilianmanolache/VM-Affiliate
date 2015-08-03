@@ -70,7 +70,7 @@ class VMAHelper {
 	 * Pending orders statuses
 	 */
 	 
-	var $_pendingStatuses	= array("P");
+	var $_pendingStatuses	= array("P", "U");
 	
 	/**
 	 * Confirmed orders statuses

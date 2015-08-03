@@ -1012,5 +1012,6 @@ components/com_affiliate/statistics/*
 components/com_affiliate/thumbs/*
 !components/com_affiliate/thumbs/thumb_resized/index.html
 !components/com_affiliate/thumbs/index.html
-!components/com_affiliate/thumbs/thumb_swf.swf
-!components/com_affiliate/thumbs/thumbbig_swf.swf
+!components/com_affiliate/thumbs/thumb_swf.png
+!components/com_affiliate/thumbs/thumbbig_swf.png
+/safe/*

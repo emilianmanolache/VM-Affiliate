@@ -358,7 +358,7 @@ class AffiliateModelPanel extends JModelLegacy {
 
 					$query		= !$menu ? 
 					
-								  "SELECT ao.*, o.`created_on` AS order_date, (o.`order_salesPrice` - o.`coupon_discount`) " . 
+								  "SELECT ao.*, o.`created_on` AS order_date, (o.`order_subtotal` - o.`coupon_discount`) " .
 								  
 								  "AS subtotal FROM #__vm_affiliate_orders ao "	. 
 					
