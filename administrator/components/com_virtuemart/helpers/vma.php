@@ -1238,7 +1238,7 @@ class VMAHelper {
 		
 		$items 		= array();
 		
-		$fontFolder	= JPATH_ROOT . DS . "components" . DS . "com_affiliate" . DS . "assets" . DS . "pChart" . DS . "Fonts";
+		$fontFolder	= JPATH_ROOT . DIRECTORY_SEPARATOR . "components" . DIRECTORY_SEPARATOR . "com_affiliate" . DIRECTORY_SEPARATOR . "assets" . DIRECTORY_SEPARATOR . "pChart" . DIRECTORY_SEPARATOR . "Fonts";
 		
 		if ($frontend) {
 			
@@ -1294,9 +1294,9 @@ class VMAHelper {
 		
 		// load the pchart library
 		
-		require_once(JPATH_ROOT . DS . "components" . DS . "com_affiliate" . DS . "assets" . DS . "pChart" . DS . "pChart" . DS . "pData.class");  
+		require_once(JPATH_ROOT . DIRECTORY_SEPARATOR . "components" . DIRECTORY_SEPARATOR . "com_affiliate" . DIRECTORY_SEPARATOR . "assets" . DIRECTORY_SEPARATOR . "pChart" . DIRECTORY_SEPARATOR . "pChart" . DIRECTORY_SEPARATOR . "pData.class");  
 		
-		require_once(JPATH_ROOT . DS . "components" . DS . "com_affiliate" . DS . "assets" . DS . "pChart" . DS . "pChart" . DS . "pChart.class.php");  
+		require_once(JPATH_ROOT . DIRECTORY_SEPARATOR . "components" . DIRECTORY_SEPARATOR . "com_affiliate" . DIRECTORY_SEPARATOR . "assets" . DIRECTORY_SEPARATOR . "pChart" . DIRECTORY_SEPARATOR . "pChart" . DIRECTORY_SEPARATOR . "pChart.class.php");  
 				
 		$dataSet	 		= new pData;
 		
@@ -1344,13 +1344,13 @@ class VMAHelper {
 
 		$statistics = new pChart(465, 250);
 		 
-		$statistics->setFontProperties($fontFolder . DS . "tahoma.ttf", 10);
+		$statistics->setFontProperties($fontFolder . DIRECTORY_SEPARATOR . "tahoma.ttf", 10);
 		
 		$statistics->setGraphArea(45, 30, 455, 200); 
 		
 		$statistics->drawGraphArea(252, 252, 252);
 		
-		$statistics->setFontProperties($fontFolder . DS . "tahoma.ttf", 8);
+		$statistics->setFontProperties($fontFolder . DIRECTORY_SEPARATOR . "tahoma.ttf", 8);
 		
 		$statistics->drawScale($dataSet->GetData(), $dataSet->GetDataDescription(), SCALE_NORMAL, 150, 150, 150, TRUE, 0, 2, FALSE, 1, $period);
 		
@@ -1360,15 +1360,15 @@ class VMAHelper {
 		
 		$statistics->drawPlotGraph($dataSet->GetData(), $dataSet->GetDataDescription(), 3, 2, 255, 255, 255);
 
-		$statistics->setFontProperties($fontFolder . DS . "tahoma.ttf", 8);
+		$statistics->setFontProperties($fontFolder . DIRECTORY_SEPARATOR . "tahoma.ttf", 8);
 		
 		$statistics->drawLegend(50, 35, $dataSet->GetDataDescription(), 255, 255, 255);
 		
-		$statistics->setFontProperties($fontFolder . DS . "tahoma.ttf", 10);
+		$statistics->setFontProperties($fontFolder . DIRECTORY_SEPARATOR . "tahoma.ttf", 10);
 		
 		$statistics->drawTitle(0, 0, $this->fixUTF8(JText::_("STATISTICS") . ": " . $title . " - " . $niceDate), 50, 5, 50, 475, 30);
 		
-		$statistics->Render(JPATH_ROOT . DS . "components" . DS . "com_affiliate" . DS . "statistics" . DS . md5($hashString) . $type . $period . ".png");
+		$statistics->Render(JPATH_ROOT . DIRECTORY_SEPARATOR . "components" . DIRECTORY_SEPARATOR . "com_affiliate" . DIRECTORY_SEPARATOR . "statistics" . DIRECTORY_SEPARATOR . md5($hashString) . $type . $period . ".png");
 		
 		return true;
 		
@@ -1454,7 +1454,7 @@ class VMAHelper {
 		
 		$language 			= &JFactory::getLanguage();
 		
-		$path				= JPATH_ROOT . DS . "administrator";
+		$path				= JPATH_ROOT . DIRECTORY_SEPARATOR . "administrator";
 		
 		$menuItems			= $this->getMenuItems();
 
@@ -1614,7 +1614,7 @@ class VMAHelper {
 		
 		// initiate virtuemart configuration
 		
-		require_once(JPATH_ADMINISTRATOR . DS . "components" . DS . "com_virtuemart" . DS . "helpers" . DS . "config.php");
+		require_once(JPATH_ADMINISTRATOR . DIRECTORY_SEPARATOR . "components" . DIRECTORY_SEPARATOR . "com_virtuemart" . DIRECTORY_SEPARATOR . "helpers" . DIRECTORY_SEPARATOR . "config.php");
 		
 		$vmConfig = VmConfig::loadConfig();
 		
@@ -3243,7 +3243,7 @@ class VMAHelper {
 							  
 							  "UPDATE #__virtuemart_userfield_values SET `fieldtitle` = '" 		. $affiliateName 	. "' WHERE `fieldvalue` = '" . $affiliateID . "'" 		:
 							  
-							  "DELETE FROM #__virtuemart_userfield_values WHERE `fieldid` = '" 	. $virtuemart_userfield_id	. "' AND `fieldvalue` = '"	. $affiliateID . "'");
+							  "DELETE FROM #__virtuemart_userfield_values WHERE `virtuemart_userfield_id` = '" 	. $virtuemart_userfield_id	. "' AND `fieldvalue` = '"	. $affiliateID . "'");
 
 		$this->_db->setQuery($query);
 		
@@ -3597,7 +3597,7 @@ class VMAHelper {
 
 		// create the resized file
 		
-		$output  = JPATH_ROOT . DS . "components" . DS . "com_affiliate" . DS . $destination . DS . $prefix . $filename . "." . $ext;
+		$output  = JPATH_ROOT . DIRECTORY_SEPARATOR . "components" . DIRECTORY_SEPARATOR . "com_affiliate" . DIRECTORY_SEPARATOR . $destination . DIRECTORY_SEPARATOR . $prefix . $filename . "." . $ext;
 		
 		switch ($info[2]) {
 			

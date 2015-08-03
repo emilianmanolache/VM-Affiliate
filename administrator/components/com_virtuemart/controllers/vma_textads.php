@@ -60,7 +60,7 @@ class VirtuemartControllerVma_textads extends JControllerLegacy {
 		
 		$textAd["title"] 				= JRequest::getString("title", 				"", 	"post");
 		
-		$textAd["title"]				= $database->getEscaped($textAd["title"]);
+		$textAd["title"]				= $database->escape($textAd["title"]);
 		
 		$textAd["link"] 				= JRequest::getString("link", 				"", 	"post");
 		

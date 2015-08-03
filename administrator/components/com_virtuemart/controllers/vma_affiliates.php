@@ -312,7 +312,7 @@ class VirtuemartControllerVma_affiliates extends JControllerLegacy {
 			
 			if ($property != "password") {
 				
-				$newAffiliate[$property] = $database->getEscaped($newAffiliate[$property]);
+				$newAffiliate[$property] = $database->escape($newAffiliate[$property]);
 			
 			}
 			
@@ -510,7 +510,7 @@ class VirtuemartControllerVma_affiliates extends JControllerLegacy {
 		
 		foreach ($newAffiliate as $property => $value) {
 			
-			$newAffiliate[$property] = $database->getEscaped($newAffiliate[$property]);
+			$newAffiliate[$property] = $database->escape($newAffiliate[$property]);
 			
 		}
 		

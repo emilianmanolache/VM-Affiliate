@@ -56,7 +56,7 @@ class VirtuemartControllerVma_banners extends JControllerLegacy {
 		
 		$bannerName			= JRequest::getVar('name',			'');
 		
-		$bannerName			= $database->getEscaped($bannerName);
+		$bannerName			= $database->escape($bannerName);
 		
 		$bannerLink			= JRequest::getVar('link',			'');
 		

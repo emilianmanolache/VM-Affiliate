@@ -78,7 +78,7 @@ class VirtuemartControllerVma_configuration extends JControllerLegacy {
 		
 		$mustAgree			= JRequest::getVar("must_agree",										"0");
 		
-		$affTerms			= $database->getEscaped(JRequest::getString("affiliateProgramTerms",	"", "POST", JREQUEST_ALLOWHTML));
+		$affTerms			= $database->escape(JRequest::getString("affiliateProgramTerms",	"", "POST", JREQUEST_ALLOWHTML));
 		
 		// validate input
 		

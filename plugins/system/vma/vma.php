@@ -412,7 +412,7 @@ class plgSystemVma extends JPlugin {
 
 		$query	= "SELECT `RemoteAddress` FROM #__vm_affiliate_clicks WHERE `RemoteAddress` = " . 
 		
-				  "'" . $this->_db->getEscaped($_SERVER['REMOTE_ADDR']) . "' AND `AffiliateID` = '" . (int) $affiliateID . "'";
+				  "'" . $this->_db->escape($_SERVER['REMOTE_ADDR']) . "' AND `AffiliateID` = '" . (int) $affiliateID . "'";
 
 		$this->_db->setQuery( $query );
 
@@ -424,9 +424,9 @@ class plgSystemVma extends JPlugin {
 
 		$query 	= "INSERT INTO #__vm_affiliate_clicks VALUES ('', '" . (int) $affiliateID . "', '" . date("U") . "', " . 
 		
-				  "'" . $this->_db->getEscaped($_SERVER['REMOTE_ADDR']) . "', '" . $this->_db->getEscaped($referrer) . "', " . 
+				  "'" . $this->_db->escape($_SERVER['REMOTE_ADDR']) . "', '" . $this->_db->escape($referrer) . "', " .
 				  
-				  "'" . $this->_db->getEscaped($browser) . "', '0', '" . date("Y-m-d\TH:i:s") . "')";
+				  "'" . $this->_db->escape($browser) . "', '0', '" . date("Y-m-d\TH:i:s") . "')";
 
 		$this->_db->setQuery( $query );
 
@@ -498,7 +498,7 @@ class plgSystemVma extends JPlugin {
 			
 			$query				= "SELECT `affiliate_id` FROM #__vm_affiliate WHERE `blocked` = '0' AND " 			. 
 			
-								  (isset($affiliateUsername) ? ("`username` = '" 			. 	$this->_db->getEscaped($affiliateUsername)	. "'") :
+								  (isset($affiliateUsername) ? ("`username` = '" 			. 	$this->_db->escape($affiliateUsername)	. "'") :
 								  
 								  							   ("`affiliate_id` = '"		. 	(int) $affiliateID		. "'"));
 															  
@@ -542,7 +542,7 @@ class plgSystemVma extends JPlugin {
 			
 			// remove any previous coupon with the same name
 			
-			$query				= "DELETE FROM #__virtuemart_coupons WHERE `coupon_code` = '" . $this->_db->getEscaped($affiliateUsername) . "'";
+			$query				= "DELETE FROM #__virtuemart_coupons WHERE `coupon_code` = '" . $this->_db->escape($affiliateUsername) . "'";
 			
 			$this->_db->setQuery($query);
 			
@@ -556,7 +556,7 @@ class plgSystemVma extends JPlugin {
 								  
 								  "`modified_by`, `locked_on`, `locked_by`) " . 
 			
-								  "VALUES ('', '" . $this->_db->getEscaped($affiliateUsername) . "', '" . 
+								  "VALUES ('', '" . $this->_db->escape($affiliateUsername) . "', '" .
 			
 								  $discountType . "', 'gift', '" . $discountRate["discount_amount"] . "', '', '" . date("Y-m-d", strtotime("+2 days")) . "', '', '1', '', '', '', '', '', '')";
 								  
