@@ -45,7 +45,7 @@ class VirtueMartModelVma_product_ads extends VmModel {
 		// get language
 		
 		$lc			= $vmaHelper->getLanguageTag();
-		
+
 		// get search condition
 		
 		$searchIn 	= array("product_name");
@@ -54,9 +54,9 @@ class VirtueMartModelVma_product_ads extends VmModel {
 		
 		$condition	= "products.`published` = '1' AND categories.`virtuemart_category_id` = xref.`virtuemart_category_id` AND categories.`published` = '1' " 			. 
 
-			  		  "AND products.`product_parent_id` = '0' AND products.`virtuemart_product_id` = xref.`virtuemart_product_id` " . 
+			  		  "AND products.`virtuemart_product_id` = xref.`virtuemart_product_id` " .
 					  
-					  "AND medias.`file_is_downloadable` = '0' AND medias.`file_is_forSale` = '0' AND medias.`file_url_thumb` != '' ";
+					  "AND medias.`file_is_downloadable` = '0' AND medias.`file_is_forSale` = '0' AND medias.`file_url` != '' ";
 			  
 		$condition	.= $search ? " AND (" . $vmaHelper->prepareSearch($searchIn, $search, "details") . ")" : NULL;
 		

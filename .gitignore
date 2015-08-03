@@ -1007,3 +1007,10 @@ administrator/components/com_virtuemart/views/orderstatus
 administrator/components/com_virtuemart/views/shipmentmethod
 administrator/components/com_virtuemart/views/config
 administrator/components/com_virtuemart/views/calc
+components/com_affiliate/statistics/*
+!components/com_affiliate/statistics/index.html
+components/com_affiliate/thumbs/*
+!components/com_affiliate/thumbs/thumb_resized/index.html
+!components/com_affiliate/thumbs/index.html
+!components/com_affiliate/thumbs/thumb_swf.swf
+!components/com_affiliate/thumbs/thumbbig_swf.swf

@@ -156,7 +156,7 @@ class AffiliateModelPanel extends JModelLegacy {
 						
 								  "SELECT product.`virtuemart_product_id` AS product_id, details.`product_name`, " . 
 								  
-								  "medias.`file_url_thumb`, price.`product_price` AS product_price, " . 
+								  "medias.`file_url`, price.`product_price` AS product_price, " .
 								  
 								  "tax.`calc_value` AS product_tax, tax.`calc_value_mathop` AS product_tax_math, " .
 								  
@@ -184,9 +184,9 @@ class AffiliateModelPanel extends JModelLegacy {
 								  
 								  "LEFT JOIN #__virtuemart_product_categories cat ON product.`virtuemart_product_id` = cat.`virtuemart_product_id` " . 
 								  
-								  "WHERE product.`product_parent_id` = '0' AND product.`published` = '1' " . 
+								  "WHERE product.`published` = '1' " .
 								  
-								  "AND medias.`file_is_downloadable` = '0' AND medias.`file_is_forSale` = '0' AND medias.`file_url_thumb` != '' AND " . 
+								  "AND medias.`file_is_downloadable` = '0' AND medias.`file_is_forSale` = '0' AND medias.`file_url` != '' AND " .
 								  
 								  "(price.`virtuemart_shoppergroup_id` = '5' OR price.`virtuemart_shoppergroup_id` = '0' OR ISNULL(price.`virtuemart_shoppergroup_id`)) " : 
 								  
@@ -198,9 +198,9 @@ class AffiliateModelPanel extends JModelLegacy {
 								  
 								  "LEFT JOIN #__virtuemart_medias medias ON pmedias.`virtuemart_media_id` = medias.`virtuemart_media_id` " . 
 								  
-								  "WHERE product.`product_parent_id` = '0' AND product.`published` = '1' " . 
+								  "WHERE product.`published` = '1' " .
 								  
-								  "AND medias.`file_is_downloadable` = '0' AND medias.`file_is_forSale` = '0' AND medias.`file_url_thumb` != '' ";
+								  "AND medias.`file_is_downloadable` = '0' AND medias.`file_is_forSale` = '0' AND medias.`file_url` != '' ";
 						
 						// don't include unpublished products
 						
@@ -236,7 +236,7 @@ class AffiliateModelPanel extends JModelLegacy {
 						
 						$query	= !$menu ? 
 						
-								  "SELECT category.`virtuemart_category_id`, medias.`file_url_thumb`, details.`category_name` FROM #__virtuemart_categories category " . 
+								  "SELECT category.`virtuemart_category_id`, medias.`file_url`, details.`category_name` FROM #__virtuemart_categories category " .
 								  
 								  "LEFT JOIN #__virtuemart_categories_" . $lc . " details ON details.`virtuemart_category_id` = category.`virtuemart_category_id` " . 
 								  
@@ -244,7 +244,7 @@ class AffiliateModelPanel extends JModelLegacy {
 								  
 								  "LEFT JOIN #__virtuemart_medias medias ON cmedias.`virtuemart_media_id` = medias.`virtuemart_media_id` " . 
 								  
-								  "WHERE category.`published` = '1' AND medias.`file_url_thumb` != '' " : 
+								  "WHERE category.`published` = '1' AND medias.`file_url` != '' " :
 								  
 								  "SELECT COUNT(DISTINCT category.`virtuemart_category_id`) FROM #__virtuemart_categories category " . 
 								  
@@ -252,7 +252,7 @@ class AffiliateModelPanel extends JModelLegacy {
 								  
 								  "LEFT JOIN #__virtuemart_medias medias ON cmedias.`virtuemart_media_id` = medias.`virtuemart_media_id` " . 
 								  
-								  "WHERE category.`published` = '1' AND medias.`file_url_thumb` != '' ";
+								  "WHERE category.`published` = '1' AND medias.`file_url` != '' ";
 						
 						// don't include unpublished categories
 						
@@ -286,7 +286,7 @@ class AffiliateModelPanel extends JModelLegacy {
 								  
 								  "WHERE cp.`virtuemart_category_id` = c.`virtuemart_category_id` AND cp.`virtuemart_product_id` = p.`virtuemart_product_id` AND " . 
 						
-								  "p.`published` = '1' AND m.`file_is_downloadable` = '0' AND m.`file_is_forSale` = '0' AND m.`file_url_thumb` != '' " : 
+								  "p.`published` = '1' AND m.`file_is_downloadable` = '0' AND m.`file_is_forSale` = '0' AND m.`file_url` != '' " :
 								  
 								  "SELECT COUNT(DISTINCT c.`virtuemart_category_id`) FROM #__virtuemart_categories c " . 
 								  
@@ -298,7 +298,7 @@ class AffiliateModelPanel extends JModelLegacy {
 								  
 								  "WHERE cp.`virtuemart_category_id` = c.`virtuemart_category_id` AND cp.`virtuemart_product_id` = p.`virtuemart_product_id` AND " . 
 						
-								  "p.`published` = '1' AND m.`file_is_downloadable` = '0' AND m.`file_is_forSale` = '0' AND m.`file_url_thumb` != '' ";
+								  "p.`published` = '1' AND m.`file_is_downloadable` = '0' AND m.`file_is_forSale` = '0' AND m.`file_url` != '' ";
 						
 						$unpublishedProducts 	= $vmaHelper->getUnpublishedProducts();
 						
@@ -810,7 +810,7 @@ class AffiliateModelPanel extends JModelLegacy {
 		
 		$textad					= array();
 		
-		$image					= $this->getImagePaths($rawProductAd->file_url_thumb, "product");
+		$image					= $this->getImagePaths($rawProductAd->file_url, "product");
 		
 		// price
 		
@@ -932,7 +932,7 @@ class AffiliateModelPanel extends JModelLegacy {
 		
 		$categoryad				= array();
 		
-		$image					= $this->getImagePaths($rawCategoryAd->file_url_thumb, "category");
+		$image					= $this->getImagePaths($rawCategoryAd->file_url, "category");
 		
 		// link
 		

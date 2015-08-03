@@ -293,3 +293,23 @@ div#affiliatePanel table {
 	padding:		1px;
 
 }
+
+div#affiliatePanel ul.pagination-list li {
+
+    display: inline-block;
+
+    margin-left: 5px;
+
+    margin-right: 5px;
+
+}
+
+div.affiliateInputField label {
+
+    display: inline-block;
+
+    margin-left: 5px;
+
+    vertical-align: sub;
+
+}

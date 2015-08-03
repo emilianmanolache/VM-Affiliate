@@ -1641,13 +1641,13 @@ class VMAHelper {
 	function getLanguageTag() {
 		
 		// get language tag
-		
-		$params 	= JComponentHelper::getParams('com_languages');
-		
-		$lc 		= $params->get('site', 'en-GB');
+
+        $lang       = JFactory::getLanguage();
+
+        $lc         = $lang->getTag();
 		
 		$lc			= strtolower(str_replace("-", "_", $lc));
-		
+
 		// return it
 		
 		return $lc;

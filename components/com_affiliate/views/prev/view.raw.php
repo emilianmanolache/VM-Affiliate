@@ -69,7 +69,7 @@ class AffiliateViewPrev extends JViewLegacy {
 		// get the preview item and assign it to the template
 			
 		$item = $session->get("item");
-		
+
 		$this->assignRef( "item", 	$item );
 		
 		$this->assignRef( 'type', 	$type );
