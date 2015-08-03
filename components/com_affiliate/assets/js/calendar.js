@@ -46,13 +46,13 @@ var Calendar = new Class({
 		// create cal element with css styles required for proper cal functioning
 		this.calendar = new Element('div', {
 			'styles': { left: '-1000px', opacity: 0, position: 'absolute', top: '-1000px', zIndex: 1000 }
-		}).addClass(this.classes.calendar).injectInside(document.body);
+		}).addClass(this.classes.calendar).inject(document.body, "inside");
 
 		// iex 6 needs a transparent iframe underneath the calendar in order to not allow select elements to render through
 		if (window.ie6) {
 			this.iframe = new Element('iframe', {
 				'styles': { left: '-1000px', position: 'absolute', top: '-1000px', zIndex: 999 }
-			}).injectInside(document.body);
+			}).inject(document.body, "inside");
 			this.iframe.style.filter = 'progid:DXImageTransform.Microsoft.Alpha(style=0,opacity=0)';
 		}
 
@@ -120,9 +120,9 @@ var Calendar = new Class({
 			// read in default value
 			cal.val = this.read(cal);
 
-			$extend(cal, this.bounds(cal)); // abs bounds of calendar
+            Object.append(cal, this.bounds(cal)); // abs bounds of calendar
 
-			$extend(cal, this.values(cal)); // valid days, months, years
+            Object.append(cal, this.values(cal)); // valid days, months, years
 
 			this.rebuild(cal);
 
@@ -318,30 +318,30 @@ var Calendar = new Class({
 		var next = new Element('a').addClass(this.classes.next).appendText('\x3e'); // >
 
 		if (this.options.navigation == 2) {
-			var month = new Element('span').addClass(this.classes.month).injectInside(caption);
+			var month = new Element('span').addClass(this.classes.month).inject(caption, "inside");
 
-			if (navigation.prev.month) { prev.clone().addEvent('click', function(cal) { this.navigate(cal, 'm', -1); }.pass(cal, this)).injectInside(month); }
+			if (navigation.prev.month) { prev.clone().addEvent('click', function(cal) { this.navigate(cal, 'm', -1); }.pass(cal, this)).inject(month, "inside"); }
 
 			month.adopt(new Element('span').appendText(this.options.months[cal.month]));
 
-			if (navigation.next.month) { next.clone().addEvent('click', function(cal) { this.navigate(cal, 'm', 1); }.pass(cal, this)).injectInside(month); }
+			if (navigation.next.month) { next.clone().addEvent('click', function(cal) { this.navigate(cal, 'm', 1); }.pass(cal, this)).inject(month, "inside"); }
 
-			var year = new Element('span').addClass(this.classes.year).injectInside(caption);
+			var year = new Element('span').addClass(this.classes.year).inject(caption, "inside");
 
-			if (navigation.prev.year) { prev.clone().addEvent('click', function(cal) { this.navigate(cal, 'y', -1); }.pass(cal, this)).injectInside(year); }
+			if (navigation.prev.year) { prev.clone().addEvent('click', function(cal) { this.navigate(cal, 'y', -1); }.pass(cal, this)).inject(year, "inside"); }
 
 			year.adopt(new Element('span').appendText(cal.year));
 
-			if (navigation.next.year) { next.clone().addEvent('click', function(cal) { this.navigate(cal, 'y', 1); }.pass(cal, this)).injectInside(year); }
+			if (navigation.next.year) { next.clone().addEvent('click', function(cal) { this.navigate(cal, 'y', 1); }.pass(cal, this)).inject(year, "inside"); }
 		}
 		else { // 1 or 0
-			if (navigation.prev.month && this.options.navigation) { prev.clone().addEvent('click', function(cal) { this.navigate(cal, 'm', -1); }.pass(cal, this)).injectInside(caption); }
+			if (navigation.prev.month && this.options.navigation) { prev.clone().addEvent('click', function(cal) { this.navigate(cal, 'm', -1); }.pass(cal, this)).inject(caption, "inside"); }
 
 			caption.adopt(new Element('span').addClass(this.classes.month).appendText(this.options.months[cal.month]));
 
 			caption.adopt(new Element('span').addClass(this.classes.year).appendText(cal.year));
 
-			if (navigation.next.month && this.options.navigation) { next.clone().addEvent('click', function(cal) { this.navigate(cal, 'm', 1); }.pass(cal, this)).injectInside(caption); }
+			if (navigation.next.month && this.options.navigation) { next.clone().addEvent('click', function(cal) { this.navigate(cal, 'm', 1); }.pass(cal, this)).inject(caption, "inside"); }
 
 		}
 
@@ -460,14 +460,14 @@ var Calendar = new Class({
 
 		this.calendar.className = this.classes.calendar + ' ' + this.options.months[cal.month].toLowerCase();
 
-		var div = new Element('div').injectInside(this.calendar); // a wrapper div to help correct browser css problems with the caption element
+		var div = new Element('div').inject(this.calendar, "inside"); // a wrapper div to help correct browser css problems with the caption element
 
-		var table = new Element('table').injectInside(div).adopt(this.caption(cal));
+		var table = new Element('table').inject(div, "inside").adopt(this.caption(cal));
 
 		// 2. day names
-		var thead = new Element('thead').injectInside(table);
+		var thead = new Element('thead').inject(table, "inside");
 
-		var tr = new Element('tr').injectInside(thead);
+		var tr = new Element('tr').inject(thead, "inside");
 
 		for (var i = 0; i <= 6; i++) {
 			var th = this.options.days[(i + this.options.offset) % 7];
@@ -476,8 +476,8 @@ var Calendar = new Class({
 		}
 
 		// 3. day numbers
-		var tbody = new Element('tbody').injectInside(table);
-		var tr = new Element('tr').injectInside(tbody);
+		var tbody = new Element('tbody').inject(table, "inside");
+		var tr = new Element('tr').inject(tbody, "inside");
 
 		var d = new Date(cal.year, cal.month, 1);
 		var offset = ((d.getDay() - this.options.offset) + 7) % 7; // day of the week (offset)
@@ -506,9 +506,9 @@ var Calendar = new Class({
 		var today = new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime(); // today obv
 
 		for (var i = 1; i < 43; i++) { // 1 to 42 (6 x 7 or 6 weeks)
-			if ((i - 1) % 7 == 0) { tr = new Element('tr').injectInside(tbody); } // each week is it's own table row
+			if ((i - 1) % 7 == 0) { tr = new Element('tr').inject(tbody, "inside"); } // each week is it's own table row
 
-			var td = new Element('td').injectInside(tr);
+			var td = new Element('td').inject(tr, "inside");
 
 			var day = i - offset;
 			var date = new Date(cal.year, cal.month, day);
@@ -791,7 +791,7 @@ var Calendar = new Class({
 					var option = new Element('option', {
 						'selected': (d == day),
 						'value': ((el.format == 'd' && day < 10) ? '0' + day : day)
-					}).appendText(day).injectInside(el);
+					}).appendText(day).inject(el, "inside");
 				}, this);
 			}
 		}, this);
@@ -840,7 +840,7 @@ var Calendar = new Class({
 				}
 
 				this.toggle(cal);
-			}.create({ 'arguments': cal, 'bind': this, 'event': true });
+			}.bind({ 'arguments': cal, 'bind': this, 'event': true });
 
 			document.addEvent('mousedown', this.fn);
 

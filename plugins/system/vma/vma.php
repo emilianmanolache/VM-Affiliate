@@ -485,9 +485,9 @@ class plgSystemVma extends JPlugin {
 		}
 		
 		// check for coupon-based offline tracking
-		
+
 		if ($this->_settings->offline_type == 3 && isset($_POST["coupon_code"])			&& !empty($_POST["coupon_code"]))			{
-			
+
 			$affiliateUsername	= &JRequest::getVar("coupon_code");
 
 		}
@@ -505,7 +505,7 @@ class plgSystemVma extends JPlugin {
 			$this->_db->setQuery($query);
 			
 			$validAffiliateID	= $this->_db->loadResult();
-		
+
 		}
 		
 		// if no valid affiliate found, cancel the operation
@@ -1110,7 +1110,7 @@ class plgSystemVma extends JPlugin {
 								
 								var affiliateIcon											= panelIcons[panelIcons.length - 3].clone();
 								
-								affiliateIcon.injectBefore(panelIcons[panelIcons.length - 3]);
+								affiliateIcon.inject(panelIcons[panelIcons.length - 3], 'before');
 								
 								var affiliateIconElements									= affiliateIcon.getChildren();
 								

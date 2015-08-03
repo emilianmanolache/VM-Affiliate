@@ -102,9 +102,11 @@ $tabsFunctions		= 'tabCaption										= new Array();
 															
 														}
 														
-													}
+													},
+
+													"text": tabCaption[tab.id]
 													
-							  					}).appendText(tabCaption[tab.id]).injectInside(tab);
+							  					}).inject(tab, "inside");
 							  
 						  });
 							
@@ -620,7 +622,7 @@ $document->addScriptDeclaration($formValidation);
                     
                 </div>
                 
-                <div class="affiliateFormRow">
+                <div class="affiliateFormRow affiliateTermsConfig">
     
                     <div class="affiliateDetailsKey">
                     

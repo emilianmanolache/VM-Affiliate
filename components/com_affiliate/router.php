@@ -19,7 +19,7 @@ defined( '_JEXEC' ) or die( 'Direct access to this location is not allowed.' );
 function affiliateBuildRoute(&$query) {
 	
 	$segments		= array();
-	
+
 	if (isset($query["view"])) {
 		   
 		$segments[] = $query["view"];
@@ -153,7 +153,7 @@ function affiliateBuildRoute(&$query) {
 		unset($query["paid"]);
 		
 	}
-	
+
 	return $segments;
 	   
 }
@@ -179,7 +179,7 @@ function affiliateParseRoute($segments) {
 	$count	= count($segments);
 
 	switch($segments[0]) {
-		
+
 		case "login":
 		
 			$vars["view"]				= "login";
@@ -207,8 +207,8 @@ function affiliateParseRoute($segments) {
 		case "terms":
 			
 			$vars["view"]				= "terms";
-			
-			if (count == 2) {
+
+			if ($count == 2) {
 				
 				$vars["tmpl"]			= $segments[1];
 			
@@ -361,7 +361,7 @@ function affiliateParseRoute($segments) {
 			break;
 			
 	}
-	
+
 	JRequest::setVar("view", $vars["view"], "get");
 	
 	return $vars;

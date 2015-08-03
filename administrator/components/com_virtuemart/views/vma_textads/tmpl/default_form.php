@@ -116,7 +116,7 @@ $document->addScriptDeclaration($validateTextAdForm);
                     
                 </div>
                 
-                <div class="affiliateDetailsValue affiliateLongerInputs">
+                <div class="affiliateDetailsValue affiliateLongerInputs affiliateTextAdText">
                 
                 	<?php echo $editor->display('affiliateText', ($textadID ? $textad->content : NULL), '380', '100', '60', '20', false); ?>
                     

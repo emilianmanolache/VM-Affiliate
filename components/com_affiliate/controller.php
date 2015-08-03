@@ -1460,7 +1460,7 @@ class AffiliateController extends JControllerLegacy {
 		
 		$database				= JFactory::getDBO();
 		
-		$destination 			= JPATH_ROOT . DIRECTORY_SEPARATOR . "components" . DIRECTORY_SEPARATOR . "com_affiliate" . DIRECTORY_SEPARATOR . "banners" . DS;
+		$destination 			= JPATH_ROOT . DIRECTORY_SEPARATOR . "components" . DIRECTORY_SEPARATOR . "com_affiliate" . DIRECTORY_SEPARATOR . "banners" . DIRECTORY_SEPARATOR;
 		
 		$uploadedName			= basename($_FILES['userfile']['name']);
 		

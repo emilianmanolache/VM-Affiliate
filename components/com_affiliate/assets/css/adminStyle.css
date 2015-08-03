@@ -695,3 +695,47 @@ div.affiliateDetailsValue div.advcode_toggle {
 	display:				none;
 	
 }
+
+div.affiliateDetailsValue div {
+
+    float: none;
+
+}
+
+div.affiliateTermsConfig, div.affiliateTermsConfig div {
+
+    width: auto;
+
+}
+
+div.affiliateFormRow.affiliateTermsConfig div.affiliateDetailsValue.affiliateCommissionInputs {
+
+    width: 50%;
+
+    margin-left: 25%;
+
+}
+
+div.affiliateTextAdText {
+
+    width: 50% !important;
+
+}
+
+div.affiliateTextAdText div.editor {
+
+    width: auto;
+
+}
+
+div.affiliateTextAdText div {
+
+    width: inherit;
+
+}
+
+div.affiliateTextAdText button {
+
+    width: inherit;
+
+}

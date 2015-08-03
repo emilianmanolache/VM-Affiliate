@@ -1802,7 +1802,7 @@ class VMAHelper {
 																		
 																		'font-size':			'11px',
 																		
-																		'height':				window.ie ? '14px' : '11px',
+																		//'height':				window.ie ? '18px' : '11px',
 																		
 																		'padding':				'0px 0px 0px 0px',
 																		
@@ -1852,7 +1852,7 @@ class VMAHelper {
 									  
 											x: 	modalWindowWidth,
 										
-											y: 	110
+											y: 	150
 										
 									  },
 									  
@@ -1968,7 +1968,7 @@ class VMAHelper {
 																			  
 																			  'disabled':	'disabled'
 																			  
-										}).injectAfter($('urlMainShop'));
+										}).inject($('urlMainShop'), 'after');
 										
 										var urlOptionGroup = new Element('optgroup', {
 										  
@@ -1976,7 +1976,7 @@ class VMAHelper {
 																			  
 																			  'label':		'" . JText::_("URL") . ":'
 																				
-										}).injectAfter($('urlOptionGroupSeparator'));
+										}).inject($('urlOptionGroupSeparator'), 'after');
 										
 									}
 									
@@ -3106,7 +3106,7 @@ class VMAHelper {
 																			
 																			'value':	bannerDetails
 																			
-																		}).injectAfter('affiliateImage');
+																		}).inject('affiliateImage', 'after');
 											  
 										  }
 										  

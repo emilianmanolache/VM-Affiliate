@@ -138,8 +138,10 @@ div.affiliateDetailsValue button.calendar {
 	width:					16px;
 	
 	border:					0 none;
-	
-	vertical-align:			bottom;
+
+    margin-left:            5px;
+
+    margin-top:             -7px;
 	
 	padding:				0px 0px 0px 0px;
 	

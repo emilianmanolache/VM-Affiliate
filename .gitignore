@@ -1015,3 +1015,6 @@ components/com_affiliate/thumbs/*
 !components/com_affiliate/thumbs/thumb_swf.png
 !components/com_affiliate/thumbs/thumbbig_swf.png
 /safe/*
+components/com_affiliate/banners/*
+!components/com_affiliate/banners/index.html
+!components/com_affiliate/banners/flash.swf
