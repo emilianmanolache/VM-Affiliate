@@ -694,7 +694,7 @@ class plgSystemVma extends JPlugin {
 				
 		// prepare and run the query
 		
-		$query 					= "SELECT ao.`order_id` AS order_id, (o.`order_salesPrice` - o.`coupon_discount`) AS order_subtotal, "				. 
+		$query 					= "SELECT ao.`order_id` AS order_id, (o.`order_subtotal` - o.`coupon_discount`) AS order_subtotal, "				.
 		
 								  "ao.`affiliate_id` AS affiliate_id, ao.`order_status` AS aff_order_status, o.`order_status` AS order_status " . 
 				

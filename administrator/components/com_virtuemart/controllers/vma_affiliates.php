@@ -770,7 +770,7 @@ class VirtuemartControllerVma_affiliates extends VmController {
 		}
 		
 		// check password
-		
+
 		list( , $salt)	= explode(":", $saltedPassword);
 		
 		$password 		= md5($password . $salt) . ":" . $salt;

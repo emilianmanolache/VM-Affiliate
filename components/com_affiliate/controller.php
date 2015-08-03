@@ -706,7 +706,7 @@ class AffiliateController extends JController {
 				
 				$query 		= "SELECT product.`virtuemart_product_id` AS product_id, details.`product_name`, " . 
 							  
-							  "medias.`file_url_thumb`, price.`product_price` AS product_price, " . 
+							  "medias.`file_url`, price.`product_price` AS product_price, " .
 							  
 							  "tax.`calc_value` AS product_tax, tax.`calc_value_mathop` AS product_tax_math, " .
 							  
@@ -734,7 +734,7 @@ class AffiliateController extends JController {
 							  
 							  "WHERE product.`virtuemart_product_id` = '" . $itemID . "' AND product.`published` = '1' " . 
 							  
-							  "AND medias.`file_is_downloadable` = '0' AND medias.`file_is_forSale` = '0' AND medias.`file_url_thumb` != '' AND " . 
+							  "AND medias.`file_is_downloadable` = '0' AND medias.`file_is_forSale` = '0' AND medias.`file_url` != '' AND " .
 								  
 							  "(price.`virtuemart_shoppergroup_id` = '5' OR price.`virtuemart_shoppergroup_id` = '0' OR ISNULL(price.`virtuemart_shoppergroup_id`)) ";
 				
@@ -744,7 +744,7 @@ class AffiliateController extends JController {
 		
 				$lc			= $vmaHelper->getLanguageTag();
 				
-				$query 		= "SELECT category.`virtuemart_category_id`, medias.`file_url_thumb`, details.`category_name` FROM #__virtuemart_categories category " . 
+				$query 		= "SELECT category.`virtuemart_category_id`, medias.`file_url`, details.`category_name` FROM #__virtuemart_categories category " .
 								  
 							  "LEFT JOIN #__virtuemart_categories_" . $lc . " details ON details.`virtuemart_category_id` = category.`virtuemart_category_id` " . 
 							  

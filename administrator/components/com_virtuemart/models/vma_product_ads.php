@@ -56,7 +56,7 @@ class VirtueMartModelVma_product_ads extends VmModel {
 
 			  		  "AND products.`product_parent_id` = '0' AND products.`virtuemart_product_id` = xref.`virtuemart_product_id` " . 
 					  
-					  "AND medias.`file_is_downloadable` = '0' AND medias.`file_is_forSale` = '0' AND medias.`file_url_thumb` != '' ";
+					  "AND medias.`file_is_downloadable` = '0' AND medias.`file_is_forSale` = '0' AND medias.`file_url` != '' ";
 			  
 		$condition	.= $search ? " AND (" . $vmaHelper->prepareSearch($searchIn, $search, "details") . ")" : NULL;
 		

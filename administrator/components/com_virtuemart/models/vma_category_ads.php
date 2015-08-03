@@ -56,7 +56,7 @@ class VirtueMartModelVma_category_ads extends VmModel {
 		
 					  "categories.`virtuemart_category_id` = xref.`virtuemart_category_id` AND products.`published` = '1' AND " . 
 					  
-					  "medias.`file_url_thumb` != '' ";
+					  "medias.`file_url` != '' ";
 			  
 		$condition	.= $search ? " AND (" . $vmaHelper->prepareSearch($searchIn, $search, "details") . ")" : NULL;
 		
