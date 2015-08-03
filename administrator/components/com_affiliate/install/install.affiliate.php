@@ -438,7 +438,7 @@ class com_affiliateInstallerScript {
 		
 		// insert the offline tracking user info fields
 		
-		$userInfoFields			= $database->getTableFields("#__virtuemart_userinfos");
+		$userInfoFields			= $database->getTableColumns("#__virtuemart_userinfos");
 		
 		if (!in_array("vm_partnersusername",	$userInfoFields)) {
 			
@@ -460,7 +460,7 @@ class com_affiliateInstallerScript {
 			
 		}
 		
-		$userInfoFields			= $database->getTableFields("#__virtuemart_order_userinfos");
+		$userInfoFields			= $database->getTableColumns("#__virtuemart_order_userinfos");
 		
 		if (!in_array("vm_partnersusername",	$userInfoFields)) {
 			
@@ -622,9 +622,7 @@ class com_affiliateInstallerScript {
 							
 							`#__vm_affiliate_method_fields`, 
 							
-							`#__vm_affiliate_orders`, 
-							
-							`#__vm_affiliate_orders_pretrack`, 
+							`#__vm_affiliate_orders`,
 							
 							`#__vm_affiliate_payments`, 
 							
@@ -1095,7 +1093,7 @@ class com_affiliateInstallerScript {
 		
 								  `#__vm_affiliate_links`, 	`#__vm_affiliate_links_categories`, `#__vm_affiliate_methods`, 		`#__vm_affiliate_method_fields`, 
 								  
-								  `#__vm_affiliate_orders`, `#__vm_affiliate_orders_pretrack`,	`#__vm_affiliate_payments`, 	`#__vm_affiliate_payment_details`, 
+								  `#__vm_affiliate_orders`, `#__vm_affiliate_payments`, 	`#__vm_affiliate_payment_details`,
 								  
 								  `#__vm_affiliate_rates`,	`#__vm_affiliate_settings`, 		`#__vm_affiliate_size_groups`, 	`#__vm_affiliate_textads`, 
 								  
@@ -1139,7 +1137,7 @@ class com_affiliateInstallerScript {
 		
 		// get offline tracking name field id
 		
-		$query		= "SELECT `fieldid` FROM #__virtuemart_userfields WHERE `name` = 'vm_partnersname'";
+		$query		= "SELECT `virtuemart_userfield_id` FROM #__virtuemart_userfields WHERE `name` = 'vm_partnersname'";
 		
 		$database->setQuery($query);
 		
@@ -1155,7 +1153,7 @@ class com_affiliateInstallerScript {
 		
 		// remove offline tracking names
 		
-		$query		= "DELETE FROM #__virtuemart_userfield_values WHERE `fieldid` = '" . $pnFieldID . "'";
+		$query		= "DELETE FROM #__virtuemart_userfield_values WHERE `virtuemart_userfield_id` = '" . $pnFieldID . "'";
 		
 		$database->setQuery($query);
 		
@@ -1163,7 +1161,7 @@ class com_affiliateInstallerScript {
 		
 		// remove offline tracking user info fields
 		
-		$userInfo	= $database->getTableFields("#__virtuemart_userinfos");
+		$userInfo	= $database->getTableColumns("#__virtuemart_userinfos");
 			
 		if (in_array("vm_partnersusername",	$userInfo)) {
 			
@@ -1185,7 +1183,7 @@ class com_affiliateInstallerScript {
 			
 		}
 		
-		$userInfo	= $database->getTableFields("#__virtuemart_order_userinfos");
+		$userInfo	= $database->getTableColumns("#__virtuemart_order_userinfos");
 			
 		if (in_array("vm_partnersusername",	$userInfo)) {
 			
