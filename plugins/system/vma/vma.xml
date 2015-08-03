@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<extension type="plugin" version="1.5" method="upgrade" group="system">
+
+	<name>System - VM Affiliate Tracking Plugin</name>
+	
+	<author>Globacide Solutions</author>
+	
+	<creationDate>January 2012</creationDate>
+	
+	<copyright>Copyright (C) 2012 Globacide Solutions. All rights reserved.</copyright>
+	
+	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+	
+	<authorEmail>support@globacide.com</authorEmail>
+	
+	<authorUrl>http://www.globacide.com</authorUrl>
+	
+	<version>1.3.0</version>
+	
+	<description>Plugin that tracks visits and orders for VM Affiliate.</description>
+	
+	<files>
+	
+		<filename plugin="vma">vma.php</filename>
+		
+	</files>
+	
+</extension>

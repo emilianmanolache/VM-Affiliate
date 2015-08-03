@@ -1,0 +1,111 @@
+@charset "utf-8";
+
+input.affiliateButton {
+
+	padding-right:			34px;
+
+	padding-left:			2px;
+
+}
+
+div#affiliateProgramSummary div div.affiliateSummaryRow {
+
+	padding-bottom:			3px;
+	
+}
+
+div.affiliateSearchBox {
+	
+	width:					180px;
+	
+}
+
+div.affiliateDetailsRow div {
+
+	width:					45%;
+		
+}
+
+input.affiliateButton {
+
+    overflow:				visible;
+	
+	padding-left:			46px;
+	
+    padding-right:			6px;
+	
+}
+
+div.affiliateFormRow div.affiliateDetailsValue {
+	
+	width:					65%;
+	
+}
+
+div#paymentMethodFieldsContainer a:hover {
+	
+	text-decoration:		none;
+	
+}
+
+div.affiliateFormRow {
+	
+	margin-top:				0px;
+	
+	margin-bottom:			0px;
+	
+	padding-top:			3px;
+	
+	padding-bottom:			3px;
+	
+}
+
+div.affiliateAdminPage input[type="checkbox"] {
+	
+	width:					13px;
+	
+}
+
+div.affiliateLongerInputs input {
+	
+    width:					158px;
+	
+}
+
+div.affiliateCommissionInputs input[type="text"] {
+
+    width:					80px;
+	
+}
+
+div.affiliateLogsMenu {
+	
+	text-align:				left;
+	
+}
+
+div.affiliateLogsMenu div.affiliateTopMenuLink {
+	
+	float:					left;
+	
+	text-align:				left;
+	
+}
+
+span.affiliateFilterMenu, span.affiliateFilterMenu span {
+	
+    text-align:				left;
+	
+}
+
+div.affiliateSizeGroupMenuModal {
+	
+	margin-right:			15px;
+	
+}
+
+table.adminlist ul.pagination {
+	
+	text-align:				center;
+	
+}

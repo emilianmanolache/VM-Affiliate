@@ -1,0 +1,17 @@
+@charset "utf-8";
+
+div.affiliateSummaryContainer {
+	
+    float: 			left;
+	
+    width: 			48%;
+	
+}
+
+input#affiliateHTML {
+	
+	margin-left:	0px;
+	
+	padding-left:	0px;
+	
+}
